@@ -1,0 +1,22 @@
+meta {
+  name: Patch_Product
+  type: http
+  seq: 11
+}
+
+patch {
+  url: http://localhost:3000/products/666061c82777d21e2ddce342
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "name": "Caesar Salad",
+    "price": "8.75",
+    "description": "Fresh romaine lettuce with Caesar dressing, croutons, and Parmesan cheese.",
+    "category": "Salad",
+    "id_restaurant": "666058fe2777d21e2ddce33d",
+    "deleted": "false"
+  }
+}

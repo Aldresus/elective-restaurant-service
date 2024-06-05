@@ -1,0 +1,15 @@
+meta {
+  name: Get_Users_Restaurants
+  type: http
+  seq: 5
+}
+
+get {
+  url: http://localhost:3000/users-restaurants?id_user=hugo
+  body: none
+  auth: none
+}
+
+query {
+  id_user: hugo
+}

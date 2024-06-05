@@ -1,0 +1,21 @@
+meta {
+  name: Patch_Menus
+  type: http
+  seq: 16
+}
+
+patch {
+  url: http://localhost:3000/menus/666069afc3f3c24d273c9268
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "name": "Menu Sodebo",
+    "description": "Sodedo thon, boisoon, option chiasse 2h après",
+    "price": "6.99",
+    "id_restaurant": "666058fe2777d21e2ddce33d",
+    "menu_ordered_categories": "Fast-Food, Repas"
+  }
+}

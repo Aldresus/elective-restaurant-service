@@ -1,0 +1,76 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+model Users_Restaurants {
+  id            String @id @default(auto()) @map("_id") @db.ObjectId
+  id_restaurant String
+  id_user       String
+}
+
+model Restaurant {
+  id                          String    @id @default(auto()) @map("_id") @db.ObjectId
+  siret                       String
+  name                        String
+  category                    String
+  createdAt                   DateTime  @default(now())
+  updatedAt                   DateTime  @updatedAt
+  price_range                 String
+  rating                      String    @default("0")
+  email                       String
+  banner_url                  String
+  business_hours              String
+  address                     String
+  city                        String
+  postal_code                 String
+  restaurant_order_categories String
+  Menu                        Menu[]
+  Product                     Product[]
+}
+
+model Product {
+  id             String           @id @default(auto()) @map("_id") @db.ObjectId
+  name           String
+  price          String
+  description    String
+  deleted        String           @default("false")
+  category       String
+  restaurant     Restaurant       @relation(fields: [id_restaurant], references: [id])
+  id_restaurant  String           @db.ObjectId
+  createdAt      DateTime         @default(now())
+  updatedAt      DateTime         @updatedAt
+  Menus_Products Menus_Products[]
+}
+
+model Menu {
+  id                      String           @id @default(auto()) @map("_id") @db.ObjectId
+  name                    String
+  price                   String
+  description             String
+  deleted                 String           @default("false")
+  menu_ordered_categories String
+  restaurant              Restaurant       @relation(fields: [id_restaurant], references: [id])
+  id_restaurant           String           @db.ObjectId
+  createdAt               DateTime         @default(now())
+  updatedAt               DateTime         @updatedAt
+  Menus_Products          Menus_Products[]
+}
+
+model Menus_Products {
+  id        String  @id @default(auto()) @map("_id") @db.ObjectId
+  product   Product @relation(fields: [productId], references: [id])
+  productId String  @db.ObjectId // relation scalar field (used in the `@relation` attribute above)
+  menu      Menu    @relation(fields: [menuId], references: [id])
+  menuId    String  @db.ObjectId // relation scalar field (used in the `@relation` attribute above)
+}

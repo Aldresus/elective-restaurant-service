@@ -1,0 +1,21 @@
+meta {
+  name: Post_Menus
+  type: http
+  seq: 14
+}
+
+post {
+  url: http://localhost:3000/menus
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "name": "Menu Kebab Etudiant",
+    "description": "Kebab salade tomate oignons du chef, frite, boissons",
+    "price": "6.00",
+    "id_restaurant": "666058fe2777d21e2ddce33d",
+    "menu_ordered_categories": "Kebab, Repas"
+  }
+}

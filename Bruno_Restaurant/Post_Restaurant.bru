@@ -1,0 +1,27 @@
+meta {
+  name: Post_Restaurant
+  type: http
+  seq: 2
+}
+
+post {
+  url: http://localhost:3000/restaurants
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "name": "La Maison Kammerzell",
+    "siret": "12345678901234",
+    "email": "contact@maison-kammerzell.com",
+    "category": "French",
+    "price_range": "40-50€",
+    "address": "16 Place de la Cathédrale",
+    "postal_code": "67000",
+    "city": "Strasbourg",
+    "banner_url": "path/to/image.jpg",
+    "business_hours": "Mon-Sun: 12:00-14:30, 18:30-22:00",
+    "restaurant_order_categories": "Appetizers, Main Courses, Desserts, Beverages"
+  }
+}

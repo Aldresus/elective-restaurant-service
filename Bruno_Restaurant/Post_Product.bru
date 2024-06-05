@@ -1,0 +1,22 @@
+meta {
+  name: Post_Product
+  type: http
+  seq: 10
+}
+
+post {
+  url: http://localhost:3000/products
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "name": "Caesar Salad",
+    "price": "8.75",
+    "description": "Fresh romaine lettuce with Caesar dressing, croutons, and Parmesan cheese.",
+    "category": "Salad",
+    "id_restaurant": "666058fe2777d21e2ddce33d",
+    "deleted": "false"
+  }
+}

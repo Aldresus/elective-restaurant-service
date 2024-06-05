@@ -1,0 +1,9 @@
+{
+  "version": "1",
+  "name": "Elective_Projet_Restaurant",
+  "type": "collection",
+  "ignore": [
+    "node_modules",
+    ".git"
+  ]
+}
