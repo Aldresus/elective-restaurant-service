@@ -57,16 +57,23 @@ export class UsersRestaurantsController {
   @Patch(':id')
   @ApiOperation({ summary: 'Update user-restaurant link with ID' })
   @ApiResponseProperty({ type: UpdateUsersRestaurantDto })
+  @ApiBody({ type: UpdateUsersRestaurantDto })
   @ApiParam({ name: 'id', type: String })
-  update(@Param('id') id: string, @Body() updateUsersRestaurantDto) {
-    return this.usersRestaurantsService.update(id, updateUsersRestaurantDto);
+  update(
+    @Param('id') id_user_restaurant: string,
+    @Body() updateUsersRestaurantDto,
+  ) {
+    return this.usersRestaurantsService.update(
+      id_user_restaurant,
+      updateUsersRestaurantDto,
+    );
   }
 
   @Delete(':id')
   @ApiOperation({ summary: 'Delete user-restaurant link with ID' })
   @ApiCreatedResponse({ type: UsersRestaurantEntity })
   @ApiParam({ name: 'id', type: String })
-  remove(@Param('id') id: string) {
-    return this.usersRestaurantsService.remove(id);
+  remove(@Param('id') id_user_restaurant: string) {
+    return this.usersRestaurantsService.remove(id_user_restaurant);
   }
 }

@@ -15,33 +15,55 @@ export class RestaurantsService {
     });
   }
 
-  findMany(data: { Name: string, City: string, PriceRange: string, Category: string, Rating: string }) {
+  findMany(data: {
+    name: string;
+    city: string;
+    price_range: string;
+    category: string;
+    rating_e: number;
+    rating_gt: number;
+    rating_lt: number;
+  }) {
     return this.prisma.restaurant.findMany({
       where: {
         AND: [
-          { name: data.Name === '' ? undefined : data.Name },
-          { city: data.City === '' ? undefined : data.City },
-          { price_range: data.PriceRange === '' ? undefined : data.PriceRange },
-          { category: data.Category === '' ? undefined : data.Category },
-          { rating: data.Rating === '' ? undefined : data.Rating },
-        ]
-      }
+          {
+            name: data.name === '' ? undefined : data.name,
+          },
+          {
+            city: data.city === '' ? undefined : data.city,
+          },
+          {
+            price_range: data.price_range === '' ? undefined : data.price_range,
+          },
+          {
+            category: data.category === '' ? undefined : data.category,
+          },
+          {
+            rating: {
+              equals: data.rating_e,
+              gt: data.rating_gt,
+              lt: data.rating_lt,
+            },
+          },
+        ],
+      },
     });
   }
 
-  update(id: string, updateRestaurantDto: UpdateRestaurantDto) {
+  update(id_restaurant: string, updateRestaurantDto: UpdateRestaurantDto) {
     return this.prisma.restaurant.update({
       where: {
-        id: id,
+        id_restaurant: id_restaurant,
       },
       data: updateRestaurantDto,
     });
   }
 
-  remove(id: string) {
+  remove(id_restaurant: string) {
     return this.prisma.restaurant.delete({
       where: {
-        id: id,
+        id_restaurant: id_restaurant,
       },
     });
   }

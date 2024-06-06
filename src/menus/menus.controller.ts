@@ -55,15 +55,15 @@ export class MenusController {
   @ApiCreatedResponse({ type: MenuEntity })
   @ApiBody({ type: UpdateMenuDto })
   @ApiParam({ name: 'id', type: String })
-  update(@Param('id') id: string, @Body() updateMenuDto: UpdateMenuDto) {
-    return this.menusService.update(id, updateMenuDto);
+  update(@Param('id') id_menu: string, @Body() updateMenuDto: UpdateMenuDto) {
+    return this.menusService.update(id_menu, updateMenuDto);
   }
 
   @Delete(':id')
   @ApiOperation({ summary: 'Delete menu with ID' })
   @ApiCreatedResponse({ type: MenuEntity })
   @ApiParam({ name: 'id', type: String })
-  remove(@Param('id') id: string) {
-    return this.menusService.remove(id);
+  remove(@Param('id') id_menu: string) {
+    return this.menusService.remove(id_menu);
   }
 }

@@ -3,7 +3,7 @@ import type { Menu } from '@prisma/client';
 
 export class MenuEntity implements Menu {
   @ApiProperty()
-  id: string;
+  id_menu: string;
 
   @ApiProperty()
   name: string;
@@ -12,7 +12,7 @@ export class MenuEntity implements Menu {
   description: string;
 
   @ApiProperty()
-  price: string;
+  price: number;
 
   @ApiProperty()
   category: string;

@@ -26,19 +26,19 @@ export class MenusService {
     });
   }
 
-  update(id: string, updateMenuDto: UpdateMenuDto) {
+  update(id_menu: string, updateMenuDto: UpdateMenuDto) {
     return this.prisma.menu.update({
       where: {
-        id,
+        id_menu: id_menu,
       },
       data: updateMenuDto,
     });
   }
 
-  remove(id: string) {
+  remove(id_menu: string) {
     return this.prisma.menu.delete({
       where: {
-        id,
+        id_menu: id_menu,
       },
     });
   }

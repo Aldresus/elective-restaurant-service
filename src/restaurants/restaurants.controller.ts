@@ -41,20 +41,26 @@ export class RestaurantsController {
   @ApiQuery({ name: 'city', required: false, type: String })
   @ApiQuery({ name: 'price_range', required: false, type: String })
   @ApiQuery({ name: 'category', required: false, type: String })
-  @ApiQuery({ name: 'rating', required: false, type: String })
+  @ApiQuery({ name: 'rating_e', required: false, type: Number })
+  @ApiQuery({ name: 'rating_gt', required: false, type: Number })
+  @ApiQuery({ name: 'rating_lt', required: false, type: Number })
   findMany(
-    @Query('name') Name: string,
-    @Query('city') City: string,
-    @Query('price_range') PriceRange: string,
-    @Query('category') Category: string,
-    @Query('rating') Rating: string,
+    @Query('name') name: string,
+    @Query('city') city: string,
+    @Query('price_range') price_range: string,
+    @Query('category') category: string,
+    @Query('rating_e') ratingE: number,
+    @Query('rating_gt') ratingGT: number,
+    @Query('rating_lt') ratingLT: number,
   ) {
     return this.restaurantsService.findMany({
-      Name,
-      City,
-      PriceRange,
-      Category,
-      Rating,
+      name,
+      city,
+      price_range,
+      category,
+      rating_e: Number(ratingE) || undefined,
+      rating_gt: Number(ratingGT) || undefined,
+      rating_lt: Number(ratingLT) || undefined,
     });
   }
 
@@ -63,15 +69,15 @@ export class RestaurantsController {
   @ApiCreatedResponse({ type: RestaurantEntity })
   @ApiBody({ type: UpdateRestaurantDto })
   @ApiParam({ name: 'id', type: String })
-  update(@Param('id') id: string, @Body() updateRestaurantDto) {
-    return this.restaurantsService.update(id, updateRestaurantDto);
+  update(@Param('id') id_restaurant: string, @Body() updateRestaurantDto) {
+    return this.restaurantsService.update(id_restaurant, updateRestaurantDto);
   }
 
   @Delete(':id')
   @ApiOperation({ summary: 'Delete restaurant with ID' })
   @ApiCreatedResponse({ type: RestaurantEntity })
   @ApiParam({ name: 'id', type: String })
-  remove(@Param('id') id: string) {
-    return this.restaurantsService.remove(id);
+  remove(@Param('id') id_restaurant: string) {
+    return this.restaurantsService.remove(id_restaurant);
   }
 }

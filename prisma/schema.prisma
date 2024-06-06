@@ -14,20 +14,20 @@ datasource db {
 }
 
 model Users_Restaurants {
-  id            String @id @default(auto()) @map("_id") @db.ObjectId
-  id_restaurant String @db.ObjectId
-  id_user       String @db.ObjectId
+  id_user_restaurant String @id @default(auto()) @map("_id") @db.ObjectId
+  id_restaurant      String @db.ObjectId
+  id_user            String @db.ObjectId
 }
 
 model Restaurant {
-  id                          String    @id @default(auto()) @map("_id") @db.ObjectId
+  id_restaurant               String    @id @default(auto()) @map("_id") @db.ObjectId
   siret                       String
   name                        String
   category                    String
   createdAt                   DateTime  @default(now())
   updatedAt                   DateTime  @updatedAt
   price_range                 String
-  rating                      String    @default("0")
+  rating                      Float     @default(0.0)
   email                       String
   banner_url                  String
   business_hours              String
@@ -40,28 +40,28 @@ model Restaurant {
 }
 
 model Product {
-  id             String           @id @default(auto()) @map("_id") @db.ObjectId
-  name           String
-  price          String
-  description    String
-  deleted        String           @default("false")
-  category       String
-  restaurant     Restaurant       @relation(fields: [id_restaurant], references: [id])
-  id_restaurant  String           @db.ObjectId
-  createdAt      DateTime         @default(now())
-  updatedAt      DateTime         @updatedAt
-  Menus_Products Menus_Products[]
+  id_product      String           @id @default(auto()) @map("_id") @db.ObjectId
+  name            String
+  price           Float
+  description     String
+  deleted         Boolean          @default(false)
+  category        String
+  restaurant      Restaurant       @relation(fields: [id_restaurant], references: [id_restaurant])
+  id_restaurant   String           @db.ObjectId
+  createdAt       DateTime         @default(now())
+  updatedAt       DateTime         @updatedAt
+  Menus_Products  Menus_Products[]
 }
 
 model Menu {
-  id                      String           @id @default(auto()) @map("_id") @db.ObjectId
+  id_menu                 String           @id @default(auto()) @map("_id") @db.ObjectId
   name                    String
-  price                   String
+  price                   Float
   description             String
   category                String
   deleted                 Boolean          @default(false)
   menu_ordered_categories String
-  restaurant              Restaurant       @relation(fields: [id_restaurant], references: [id])
+  restaurant              Restaurant       @relation(fields: [id_restaurant], references: [id_restaurant])
   id_restaurant           String           @db.ObjectId
   createdAt               DateTime         @default(now())
   updatedAt               DateTime         @updatedAt
@@ -69,9 +69,9 @@ model Menu {
 }
 
 model Menus_Products {
-  id        String  @id @default(auto()) @map("_id") @db.ObjectId
-  product   Product @relation(fields: [productId], references: [id])
-  productId String  @db.ObjectId
-  menu      Menu    @relation(fields: [menuId], references: [id])
-  menuId    String  @db.ObjectId
+  id_menus_products String  @id @default(auto()) @map("_id") @db.ObjectId
+  product           Product @relation(fields: [productId], references: [id_product])
+  productId         String  @db.ObjectId
+  menu              Menu    @relation(fields: [menuId], references: [id_menu])
+  menuId            String  @db.ObjectId
 }

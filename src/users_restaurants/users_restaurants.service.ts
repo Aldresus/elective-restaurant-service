@@ -13,27 +13,34 @@ export class UsersRestaurantsService {
     });
   }
 
-  findMany(ids: { id_restaurant: string, id_user: string }) {
+  findMany(ids: { id_restaurant: string; id_user: string }) {
     return this.prisma.users_Restaurants.findMany({
       where: {
         AND: [
-          { id_restaurant: ids.id_restaurant === '' ? undefined : ids.id_restaurant },
+          {
+            id_restaurant:
+              ids.id_restaurant === '' ? undefined : ids.id_restaurant,
+          },
           { id_user: ids.id_user === '' ? undefined : ids.id_user },
-        ]
-      }
-  });
-}
+        ],
+      },
+    });
+  }
 
-  update(id: string, updateUsersRestaurantDto) {
+  update(id_user_restaurant: string, updateUsersRestaurantDto) {
     return this.prisma.users_Restaurants.update({
-      where: { id },
+      where: {
+        id_user_restaurant: id_user_restaurant,
+      },
       data: updateUsersRestaurantDto,
     });
   }
 
-  remove(id: string) {
+  remove(id_user_restaurant: string) {
     return this.prisma.users_Restaurants.delete({
-      where: { id },
+      where: {
+        id_user_restaurant: id_user_restaurant,
+      },
     });
   }
 }

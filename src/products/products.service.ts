@@ -15,34 +15,30 @@ export class ProductsService {
     });
   }
 
-  findMany( id_restaurant ) {
+  findMany(id_restaurant: string, deleted: boolean = false) {
     return this.prisma.product.findMany({
       where: {
         AND: [
-          {
-            id_restaurant: id_restaurant === '' ? undefined : id_restaurant,
-          },
-          {
-            deleted: "false",
-          }
-        ]
-      }
+          { id_restaurant: id_restaurant === '' ? undefined : id_restaurant },
+          { deleted: Boolean(deleted) },
+        ],
+      },
     });
   }
 
-  update(id: string, updateProductDto: UpdateProductDto) {
+  update(id_product: string, updateProductDto: UpdateProductDto) {
     return this.prisma.product.update({
       where: {
-        id: id,
+        id_product: id_product,
       },
       data: updateProductDto,
     });
   }
 
-  remove(id: string) {
+  remove(id_product: string) {
     return this.prisma.product.delete({
       where: {
-        id: id,
+        id_product: id_product,
       },
     });
   }

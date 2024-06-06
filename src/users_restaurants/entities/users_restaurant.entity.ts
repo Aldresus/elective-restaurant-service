@@ -3,7 +3,7 @@ import type { Users_Restaurants } from '@prisma/client';
 
 export class UsersRestaurantEntity implements Users_Restaurants {
   @ApiProperty()
-  id: string;
+  id_user_restaurant: string;
 
   @ApiProperty()
   id_restaurant: string;

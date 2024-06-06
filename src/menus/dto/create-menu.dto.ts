@@ -8,12 +8,12 @@ export class CreateMenuDto {
   description: string;
 
   @ApiProperty()
-  price: string;
+  price: number;
 
   @ApiProperty()
   category: string;
 
-  @ApiProperty()
+  @ApiProperty({ default: '111111111111111111111111' })
   id_restaurant: string;
 
   @ApiProperty()

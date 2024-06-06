@@ -38,10 +38,16 @@ export class ProductsController {
   @ApiOperation({ summary: 'Get orders with optional filters' })
   @ApiCreatedResponse({ type: ProductEntity, isArray: true })
   @ApiQuery({ name: 'id_restaurant', required: false, type: String })
-  findAll(@Query('id_restaurant') idRestaurant: string) {
+  @ApiQuery({ name: 'deleted', required: false, type: Boolean })
+  findAll(
+    @Query('id_restaurant') idRestaurant: string,
+    @Query('deleted') deleted: string = 'false',
+  ) {
     console.log(idRestaurant);
-
-    return this.productsService.findMany(idRestaurant);
+    return this.productsService.findMany(
+      idRestaurant,
+      deleted == 'true' ? true : false,
+    );
   }
 
   @Patch(':id')
@@ -49,15 +55,15 @@ export class ProductsController {
   @ApiCreatedResponse({ type: ProductEntity })
   @ApiBody({ type: UpdateProductDto })
   @ApiParam({ name: 'id', type: String })
-  update(@Param('id') id: string, @Body() updateProductDto) {
-    return this.productsService.update(id, updateProductDto);
+  update(@Param('id') id_product: string, @Body() updateProductDto) {
+    return this.productsService.update(id_product, updateProductDto);
   }
 
   @Delete(':id')
   @ApiOperation({ summary: 'Delete product with ID' })
   @ApiCreatedResponse({ type: ProductEntity })
   @ApiParam({ name: 'id', type: String })
-  remove(@Param('id') id: string) {
-    return this.productsService.remove(id);
+  remove(@Param('id') id_product: string) {
+    return this.productsService.remove(id_product);
   }
 }
