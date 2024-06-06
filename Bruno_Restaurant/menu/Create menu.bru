@@ -1,11 +1,11 @@
 meta {
-  name: Post_Menus
+  name: Create menu
   type: http
-  seq: 14
+  seq: 1
 }
 
 post {
-  url: http://localhost:3000/menus
+  url: http://localhost:3000/api/menu
   body: json
   auth: none
 }
@@ -15,6 +15,7 @@ body:json {
     "name": "Menu Kebab Etudiant",
     "description": "Kebab salade tomate oignons du chef, frite, boissons",
     "price": "6.00",
+    "category": "Repas principal",
     "id_restaurant": "666058fe2777d21e2ddce33d",
     "menu_ordered_categories": "Kebab, Repas"
   }

@@ -1,0 +1,16 @@
+meta {
+  name: Get menus (with filters)
+  type: http
+  seq: 3
+}
+
+get {
+  url: http://localhost:3000/api/menu?id_restaurant=666058fe2777d21e2ddce33d&deleted=true
+  body: none
+  auth: none
+}
+
+query {
+  id_restaurant: 666058fe2777d21e2ddce33d
+  deleted: true
+}

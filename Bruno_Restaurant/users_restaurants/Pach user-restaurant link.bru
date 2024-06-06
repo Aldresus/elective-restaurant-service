@@ -1,0 +1,18 @@
+meta {
+  name: Pach user-restaurant link
+  type: http
+  seq: 4
+}
+
+patch {
+  url: http://localhost:3000/api/user-restaurant/6662147aab156a3710c25aed
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "id_restaurant": "6662147aab156a3710c25aed",
+    "id_user": "6662147aab156a3710c25aed"
+  }
+}

@@ -7,7 +7,6 @@ async function bootstrap() {
 
   const config = new DocumentBuilder()
     .setTitle('Restaurant microservice')
-    .setDescription('Restaurant microservice')
     .setVersion('1.0')
     .build();
 

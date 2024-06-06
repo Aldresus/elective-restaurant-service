@@ -1,0 +1,18 @@
+meta {
+  name: Create user-restaurant link
+  type: http
+  seq: 1
+}
+
+post {
+  url: http://localhost:3000/api/user-restaurant
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "id_restaurant": "111111111111111111111111",
+    "id_user": "111111111111111111111111"
+  }
+}

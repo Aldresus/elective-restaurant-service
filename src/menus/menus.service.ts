@@ -15,14 +15,13 @@ export class MenusService {
     });
   }
 
-  findMany(id_restaurant: string ) {
-    console.log(id_restaurant);
+  findMany(id_restaurant: string, deleted: boolean = false) {
     return this.prisma.menu.findMany({
       where: {
         AND: [
           { id_restaurant: id_restaurant === '' ? undefined : id_restaurant },
-          { deleted: "false" },
-        ]
+          { deleted: Boolean(deleted) },
+        ],
       },
     });
   }

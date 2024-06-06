@@ -1,0 +1,16 @@
+meta {
+  name: Get user-restaurant links (with filters)
+  type: http
+  seq: 3
+}
+
+get {
+  url: http://localhost:3000/api/user-restaurant?id_user=222222222222222222222222&id_restaurant=222222222222222222222222
+  body: none
+  auth: none
+}
+
+query {
+  id_user: 222222222222222222222222
+  id_restaurant: 222222222222222222222222
+}

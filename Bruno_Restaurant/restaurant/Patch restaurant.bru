@@ -1,0 +1,17 @@
+meta {
+  name: Patch restaurant
+  type: http
+  seq: 4
+}
+
+patch {
+  url: http://localhost:3000/api/restaurant/666210a3f5b7e0fa791dd3a2
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "category": "Alsacian"
+  }
+}

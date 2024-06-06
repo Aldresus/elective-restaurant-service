@@ -15,8 +15,8 @@ datasource db {
 
 model Users_Restaurants {
   id            String @id @default(auto()) @map("_id") @db.ObjectId
-  id_restaurant String
-  id_user       String
+  id_restaurant String @db.ObjectId
+  id_user       String @db.ObjectId
 }
 
 model Restaurant {
@@ -58,7 +58,8 @@ model Menu {
   name                    String
   price                   String
   description             String
-  deleted                 String           @default("false")
+  category                String
+  deleted                 Boolean          @default(false)
   menu_ordered_categories String
   restaurant              Restaurant       @relation(fields: [id_restaurant], references: [id])
   id_restaurant           String           @db.ObjectId
@@ -70,7 +71,7 @@ model Menu {
 model Menus_Products {
   id        String  @id @default(auto()) @map("_id") @db.ObjectId
   product   Product @relation(fields: [productId], references: [id])
-  productId String  @db.ObjectId // relation scalar field (used in the `@relation` attribute above)
+  productId String  @db.ObjectId
   menu      Menu    @relation(fields: [menuId], references: [id])
-  menuId    String  @db.ObjectId // relation scalar field (used in the `@relation` attribute above)
+  menuId    String  @db.ObjectId
 }

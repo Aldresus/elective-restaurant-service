@@ -2,30 +2,33 @@ import { ApiProperty } from '@nestjs/swagger';
 import type { Menu } from '@prisma/client';
 
 export class MenuEntity implements Menu {
-    @ApiProperty()
-    id: string;
+  @ApiProperty()
+  id: string;
 
-    @ApiProperty()
-    name: string;
+  @ApiProperty()
+  name: string;
 
-    @ApiProperty()
-    description: string;
+  @ApiProperty()
+  description: string;
 
-    @ApiProperty()
-    price: string;
+  @ApiProperty()
+  price: string;
 
-    @ApiProperty()
-    deleted: string;
+  @ApiProperty()
+  category: string;
 
-    @ApiProperty()
-    id_restaurant: string;
+  @ApiProperty()
+  deleted: boolean;
 
-    @ApiProperty()
-    menu_ordered_categories: string;
+  @ApiProperty()
+  id_restaurant: string;
 
-    @ApiProperty()
-    createdAt: Date;
+  @ApiProperty()
+  menu_ordered_categories: string;
 
-    @ApiProperty()
-    updatedAt: Date;
+  @ApiProperty()
+  createdAt: Date;
+
+  @ApiProperty()
+  updatedAt: Date;
 }

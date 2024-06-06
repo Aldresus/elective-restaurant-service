@@ -1,18 +1,21 @@
 import { ApiProperty } from '@nestjs/swagger';
 
 export class CreateMenuDto {
-    @ApiProperty()
-    name: string;
+  @ApiProperty()
+  name: string;
 
-    @ApiProperty()
-    description: string;
+  @ApiProperty()
+  description: string;
 
-    @ApiProperty()
-    price: string;
+  @ApiProperty()
+  price: string;
 
-    @ApiProperty()
-    id_restaurant: string;
+  @ApiProperty()
+  category: string;
 
-    @ApiProperty()
-    menu_ordered_categories: string;
+  @ApiProperty()
+  id_restaurant: string;
+
+  @ApiProperty()
+  menu_ordered_categories: string;
 }

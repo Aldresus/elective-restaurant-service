@@ -1,0 +1,17 @@
+meta {
+  name: Patch menu
+  type: http
+  seq: 4
+}
+
+patch {
+  url: http://localhost:3000/api/menu/666069afc3f3c24d273c9268
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "deleted": true
+  }
+}
