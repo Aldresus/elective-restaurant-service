@@ -15,15 +15,32 @@ export class MenusService {
     });
   }
 
-  findMany(id_restaurant: string, deleted: boolean = false) {
-    return this.prisma.menu.findMany({
-      where: {
-        AND: [
-          { id_restaurant: id_restaurant === '' ? undefined : id_restaurant },
-          { deleted: Boolean(deleted) },
-        ],
-      },
-    });
+  findMany(id_restaurant: string, deleted: string) {
+    if (deleted === 'true') {
+      return this.prisma.menu.findMany({
+        where: {
+          AND: [
+            { id_restaurant: id_restaurant === '' ? undefined : id_restaurant },
+            { deleted: true },
+          ],
+        },
+      });
+    } else if (deleted === 'false') {
+      return this.prisma.menu.findMany({
+        where: {
+          AND: [
+            { id_restaurant: id_restaurant === '' ? undefined : id_restaurant },
+            { deleted: false },
+          ],
+        },
+      });
+    } else {
+      return this.prisma.menu.findMany({
+        where: {
+          id_restaurant: id_restaurant === '' ? undefined : id_restaurant,
+        },
+      });
+    }
   }
 
   update(id_menu: string, updateMenuDto: UpdateMenuDto) {

@@ -41,13 +41,10 @@ export class MenusController {
   @ApiQuery({ name: 'deleted', required: false, type: Boolean })
   findAll(
     @Query('id_restaurant') idRestaurant: string,
-    @Query('deleted') deleted: string = 'false',
+    @Query('deleted') deleted: string,
   ) {
     console.log(idRestaurant, deleted);
-    return this.menusService.findMany(
-      idRestaurant,
-      deleted == 'true' ? true : false,
-    );
+    return this.menusService.findMany(idRestaurant, deleted);
   }
 
   @Patch(':id')

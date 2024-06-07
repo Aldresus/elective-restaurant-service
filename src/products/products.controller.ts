@@ -41,13 +41,10 @@ export class ProductsController {
   @ApiQuery({ name: 'deleted', required: false, type: Boolean })
   findAll(
     @Query('id_restaurant') idRestaurant: string,
-    @Query('deleted') deleted: string = 'false',
+    @Query('deleted') deleted: string,
   ) {
-    console.log(idRestaurant);
-    return this.productsService.findMany(
-      idRestaurant,
-      deleted == 'true' ? true : false,
-    );
+    console.log(idRestaurant, deleted);
+    return this.productsService.findMany(idRestaurant, deleted);
   }
 
   @Patch(':id')

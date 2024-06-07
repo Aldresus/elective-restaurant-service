@@ -15,15 +15,28 @@ export class ProductsService {
     });
   }
 
-  findMany(id_restaurant: string, deleted: boolean = false) {
-    return this.prisma.product.findMany({
-      where: {
-        AND: [
-          { id_restaurant: id_restaurant === '' ? undefined : id_restaurant },
-          { deleted: Boolean(deleted) },
-        ],
-      },
-    });
+  findMany(id_restaurant: string, deleted: string) {
+    if (deleted === 'true') {
+      return this.prisma.product.findMany({
+        where: {
+          id_restaurant: id_restaurant === '' ? undefined : id_restaurant,
+          deleted: true,
+        },
+      });
+    } else if (deleted === 'false') {
+      return this.prisma.product.findMany({
+        where: {
+          id_restaurant: id_restaurant === '' ? undefined : id_restaurant,
+          deleted: false,
+        },
+      });
+    } else {
+      return this.prisma.product.findMany({
+        where: {
+          id_restaurant: id_restaurant === '' ? undefined : id_restaurant,
+        },
+      });
+    }
   }
 
   update(id_product: string, updateProductDto: UpdateProductDto) {
