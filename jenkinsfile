@@ -3,12 +3,14 @@ pipeline {
 
     environment {
         MONGODB_URI = credentials('RESTAURANT_SERVICE_MONGODB_URI')
+        DISCORD_WEBHOOK_URL = credentials('DISCORD_WEBHOOK_URL')
     }
 
     stages {
         stage('clear existing image and container') {
             steps {
                 script {
+                    sh "echo deleting existing image and container"
                     try {
                         sh "docker kill restaurant-service"
                         sh "docker rm restaurant-service"
@@ -20,25 +22,45 @@ pipeline {
                     }
                 }
             }
+            post {
+                failure {
+                    discordSend description: "Failed to clear existing image and container.", link: env.BUILD_URL, result: currentBuild.currentResult, title: JOB_NAME, webhookURL: "${DISCORD_WEBHOOK_URL}"
+                }
+            }
         }
         stage('build image') {
             steps {
                 script {
+                    echo "building image with mongo ${MONGODB_URI}"
                     // Start the application within the running container
                     sh "touch .env && echo DATABASE_URL=${MONGODB_URI} >> .env"
                     sh "docker build -t restaurant-service ."
+                }
+            }
+            post {
+                failure {
+                    discordSend description: "Failed to build image.", link: env.BUILD_URL, result: currentBuild.currentResult, title: JOB_NAME, webhookURL: "${DISCORD_WEBHOOK_URL}"
+
                 }
             }
         }
         stage('deploy') {
             steps {
                 script {
-                    sh "docker run -d --name restaurant-service -p 9012:3000 --restart unless-stopped restaurant-service"
+                    sh "docker run -d --name restaurant-service -p 9010:3000 --restart unless-stopped restaurant-service"
+                }
+            }
+            post {
+                success {
+                    discordSend description: "Deployed image successfully.", link: env.BUILD_URL, result: currentBuild.currentResult, title: JOB_NAME, webhookURL: "${DISCORD_WEBHOOK_URL}"
+                }
+                failure {
+                    discordSend description: "Failed to deploy image.", link: env.BUILD_URL, result: currentBuild.currentResult, title: JOB_NAME, webhookURL: "${DISCORD_WEBHOOK_URL}"
                 }
             }
         }
     }
-}
+}  
 
 def dockerExec(command) {
     sh "docker exec ${CONTAINER_NAME} ${command}"
