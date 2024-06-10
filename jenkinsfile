@@ -12,8 +12,8 @@ pipeline {
                 script {
                     try {
                         sh "docker kill restaurant-service"
-                        sh "docker rm user-service"
-                        sh "docker rmi user-service"
+                        sh "docker rm restaurant-service"
+                        sh "docker rmi restaurant-service"
 
 
                     } catch (Exception e) {
