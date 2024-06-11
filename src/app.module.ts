@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
-import { RestaurantsModule } from './restaurants/restaurants.module';
-import { ProductsModule } from './products/products.module';
-import { MenusModule } from './menus/menus.module';
+import { RestaurantsModule } from './restaurant/restaurant.module';
+import { ProductsModule } from './product/product.module';
+import { MenusModule } from './menu/menu.module';
 import { UsersRestaurantsModule } from './users_restaurants/users_restaurants.module';
 
 @Module({

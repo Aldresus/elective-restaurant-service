@@ -8,7 +8,7 @@ import {
   Delete,
   Query,
 } from '@nestjs/common';
-import { MenusService } from './menus.service';
+import { MenuService } from './menu.service';
 import { CreateMenuDto } from './dto/create-menu.dto';
 import { UpdateMenuDto } from './dto/update-menu.dto';
 import {
@@ -23,15 +23,15 @@ import { MenuEntity } from './entities/menu.entity';
 
 @Controller('api/menu')
 @ApiTags('menu')
-export class MenusController {
-  constructor(private readonly menusService: MenusService) {}
+export class MenuController {
+  constructor(private readonly menuService: MenuService) {}
 
   @Post()
   @ApiOperation({ summary: 'Create a menu' })
   @ApiCreatedResponse({ type: MenuEntity })
   @ApiBody({ type: CreateMenuDto })
   create(@Body() createMenuDto: CreateMenuDto) {
-    return this.menusService.create(createMenuDto);
+    return this.menuService.create(createMenuDto);
   }
 
   @Get()
@@ -44,7 +44,7 @@ export class MenusController {
     @Query('deleted') deleted: string,
   ) {
     console.log(idRestaurant, deleted);
-    return this.menusService.findMany(idRestaurant, deleted);
+    return this.menuService.findMany(idRestaurant, deleted);
   }
 
   @Patch(':id')
@@ -53,7 +53,7 @@ export class MenusController {
   @ApiBody({ type: UpdateMenuDto })
   @ApiParam({ name: 'id', type: String })
   update(@Param('id') id_menu: string, @Body() updateMenuDto: UpdateMenuDto) {
-    return this.menusService.update(id_menu, updateMenuDto);
+    return this.menuService.update(id_menu, updateMenuDto);
   }
 
   @Delete(':id')
@@ -61,6 +61,6 @@ export class MenusController {
   @ApiCreatedResponse({ type: MenuEntity })
   @ApiParam({ name: 'id', type: String })
   remove(@Param('id') id_menu: string) {
-    return this.menusService.remove(id_menu);
+    return this.menuService.remove(id_menu);
   }
 }

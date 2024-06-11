@@ -16,22 +16,22 @@ import {
   ApiQuery,
   ApiTags,
 } from '@nestjs/swagger';
-import { ProductsService } from './products.service';
+import { ProductService } from './product.service';
 import { CreateProductDto } from './dto/create-product.dto';
 import { UpdateProductDto } from './dto/update-product.dto';
 import { ProductEntity } from './entities/product.entity';
 
 @Controller('api/product')
 @ApiTags('product')
-export class ProductsController {
-  constructor(private readonly productsService: ProductsService) {}
+export class ProductController {
+  constructor(private readonly productService: ProductService) {}
 
   @Post()
   @ApiOperation({ summary: 'Create a product' })
   @ApiCreatedResponse({ type: ProductEntity })
   @ApiBody({ type: CreateProductDto })
   create(@Body() createProductDto) {
-    return this.productsService.create(createProductDto);
+    return this.productService.create(createProductDto);
   }
 
   @Get()
@@ -44,7 +44,7 @@ export class ProductsController {
     @Query('deleted') deleted: string,
   ) {
     console.log(idRestaurant, deleted);
-    return this.productsService.findMany(idRestaurant, deleted);
+    return this.productService.findMany(idRestaurant, deleted);
   }
 
   @Patch(':id')
@@ -53,7 +53,7 @@ export class ProductsController {
   @ApiBody({ type: UpdateProductDto })
   @ApiParam({ name: 'id', type: String })
   update(@Param('id') id_product: string, @Body() updateProductDto) {
-    return this.productsService.update(id_product, updateProductDto);
+    return this.productService.update(id_product, updateProductDto);
   }
 
   @Delete(':id')
@@ -61,6 +61,6 @@ export class ProductsController {
   @ApiCreatedResponse({ type: ProductEntity })
   @ApiParam({ name: 'id', type: String })
   remove(@Param('id') id_product: string) {
-    return this.productsService.remove(id_product);
+    return this.productService.remove(id_product);
   }
 }

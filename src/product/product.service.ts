@@ -4,7 +4,7 @@ import type { CreateProductDto } from './dto/create-product.dto';
 import type { UpdateProductDto } from './dto/update-product.dto';
 
 @Injectable()
-export class ProductsService {
+export class ProductService {
   constructor(private prisma: PrismaService) {}
 
   create(createProductDto: CreateProductDto) {

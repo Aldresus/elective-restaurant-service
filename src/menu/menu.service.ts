@@ -4,7 +4,7 @@ import type { UpdateMenuDto } from './dto/update-menu.dto';
 import { PrismaService } from 'src/prisma.service';
 
 @Injectable()
-export class MenusService {
+export class MenuService {
   constructor(private prisma: PrismaService) {}
 
   create(createMenuDto: CreateMenuDto) {
