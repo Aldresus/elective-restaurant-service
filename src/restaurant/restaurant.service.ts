@@ -4,7 +4,7 @@ import type { UpdateRestaurantDto } from './dto/update-restaurant.dto';
 import { PrismaService } from 'src/prisma.service';
 
 @Injectable()
-export class RestaurantsService {
+export class RestaurantService {
   constructor(private prisma: PrismaService) {}
 
   create(createRestaurantDto: CreateRestaurantDto) {

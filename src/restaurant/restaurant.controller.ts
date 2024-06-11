@@ -8,7 +8,7 @@ import {
   Delete,
   Query,
 } from '@nestjs/common';
-import { RestaurantsService } from './restaurant.service';
+import { RestaurantService } from './restaurant.service';
 import { CreateRestaurantDto } from './dto/create-restaurant.dto';
 import { UpdateRestaurantDto } from './dto/update-restaurant.dto';
 import { RestaurantEntity } from './entities/restaurant.entity';
@@ -23,8 +23,8 @@ import {
 
 @Controller('api/restaurant')
 @ApiTags('restaurant')
-export class RestaurantsController {
-  constructor(private readonly restaurantsService: RestaurantsService) {}
+export class RestaurantController {
+  constructor(private readonly restaurantsService: RestaurantService) {}
 
   @Post()
   @ApiOperation({ summary: 'Create a restaurant' })
