@@ -40,17 +40,18 @@ model Restaurant {
 }
 
 model Product {
-  id_product      String           @id @default(auto()) @map("_id") @db.ObjectId
-  name            String
-  price           Float
-  description     String
-  deleted         Boolean          @default(false)
-  category        String
-  restaurant      Restaurant       @relation(fields: [id_restaurant], references: [id_restaurant])
-  id_restaurant   String           @db.ObjectId
-  createdAt       DateTime         @default(now())
-  updatedAt       DateTime         @updatedAt
-  Menus_Products  Menus_Products[]
+  id_product        String           @id @default(auto()) @map("_id") @db.ObjectId
+  name              String
+  price             Float
+  description       String
+  product_image_url String           @default("")
+  deleted           Boolean          @default(false)
+  category          String
+  restaurant        Restaurant       @relation(fields: [id_restaurant], references: [id_restaurant])
+  id_restaurant     String           @db.ObjectId
+  createdAt         DateTime         @default(now())
+  updatedAt         DateTime         @updatedAt
+  Menus_Products    Menus_Products[]
 }
 
 model Menu {
@@ -58,6 +59,7 @@ model Menu {
   name                    String
   price                   Float
   description             String
+  menu_image_url          String           @default("")
   category                String
   deleted                 Boolean          @default(false)
   menu_ordered_categories String

@@ -12,6 +12,9 @@ export class MenuEntity implements Menu {
   description: string;
 
   @ApiProperty()
+  menu_image_url: string;
+
+  @ApiProperty()
   price: number;
 
   @ApiProperty()

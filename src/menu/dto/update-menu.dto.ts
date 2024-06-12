@@ -13,6 +13,9 @@ export class UpdateMenuDto extends PartialType(CreateMenuDto) {
   price: number;
 
   @ApiProperty()
+  menu_image_url?: string;
+
+  @ApiProperty()
   category: string;
 
   @ApiProperty()

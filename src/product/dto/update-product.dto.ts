@@ -13,6 +13,9 @@ export class UpdateProductDto extends PartialType(CreateProductDto) {
   description: string;
 
   @ApiProperty()
+  product_image_url?: string;
+
+  @ApiProperty()
   category: string;
 
   @ApiProperty({ default: '111111111111111111111111' })

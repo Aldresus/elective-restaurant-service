@@ -8,6 +8,9 @@ export class CreateMenuDto {
   description: string;
 
   @ApiProperty()
+  menu_image_url?: string;
+
+  @ApiProperty()
   price: number;
 
   @ApiProperty()
