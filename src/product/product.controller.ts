@@ -7,6 +7,8 @@ import {
   Param,
   Delete,
   Query,
+  UploadedFile,
+  UseInterceptors,
 } from '@nestjs/common';
 import {
   ApiBody,
@@ -20,18 +22,32 @@ import { ProductService } from './product.service';
 import { CreateProductDto } from './dto/create-product.dto';
 import { UpdateProductDto } from './dto/update-product.dto';
 import { ProductEntity } from './entities/product.entity';
+import { FileInterceptor } from '@nestjs/platform-express';
 
 @Controller('api/product')
 @ApiTags('product')
 export class ProductController {
   constructor(private readonly productService: ProductService) {}
 
+  //   inutile ?
   @Post()
   @ApiOperation({ summary: 'Create a product' })
   @ApiCreatedResponse({ type: ProductEntity })
   @ApiBody({ type: CreateProductDto })
   create(@Body() createProductDto) {
     return this.productService.create(createProductDto);
+  }
+
+  @Post(':id/image')
+  @ApiOperation({ summary: 'Create a product with an image' })
+  @ApiCreatedResponse({ type: ProductEntity })
+  @ApiBody({ type: CreateProductDto })
+  @UseInterceptors(FileInterceptor('image'))
+  createWithImage(
+    @Body() createMenuDto: CreateProductDto,
+    @UploadedFile() image: Express.Multer.File,
+  ) {
+    return this.productService.createWithImage(createMenuDto, image);
   }
 
   @Get()
@@ -54,6 +70,24 @@ export class ProductController {
   @ApiParam({ name: 'id', type: String })
   update(@Param('id') id_product: string, @Body() updateProductDto) {
     return this.productService.update(id_product, updateProductDto);
+  }
+
+  @Patch(':id/image')
+  @ApiOperation({ summary: 'Update product image with ID' })
+  @ApiCreatedResponse({ type: ProductEntity })
+  @ApiBody({ type: UpdateProductDto })
+  @UseInterceptors(FileInterceptor('image'))
+  @ApiParam({ name: 'id', type: String })
+  updateProductImage(
+    @Param('id') id_product: string,
+    @Body() updateProductDto: UpdateProductDto,
+    @UploadedFile() image: Express.Multer.File,
+  ) {
+    return this.productService.updateProductImage(
+      id_product,
+      updateProductDto,
+      image,
+    );
   }
 
   @Delete(':id')

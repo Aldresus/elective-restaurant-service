@@ -2,6 +2,7 @@ import { PrismaService } from '../prisma.service';
 import { Injectable } from '@nestjs/common';
 import type { CreateProductDto } from './dto/create-product.dto';
 import type { UpdateProductDto } from './dto/update-product.dto';
+import uploadImage from 'src/uploadImage';
 
 @Injectable()
 export class ProductService {
@@ -13,6 +14,35 @@ export class ProductService {
     return this.prisma.product.create({
       data: createProductDto,
     });
+  }
+
+  async createWithImage(
+    createProductDto: CreateProductDto,
+    product_image?: Express.Multer.File,
+  ) {
+    try {
+      await this.prisma.product
+        .create({
+          data: createProductDto,
+        })
+        .then(async (product) => {
+          return this.prisma.product.update({
+            where: {
+              id_product: product.id_product,
+            },
+            data: {
+              product_image_url: await uploadImage(
+                product.id_product,
+                'products',
+                product_image,
+              ),
+            },
+          });
+        });
+    } catch (err) {
+      console.error(err);
+      throw err;
+    }
   }
 
   findMany(id_restaurant: string, deleted: string) {
@@ -45,6 +75,22 @@ export class ProductService {
         id_product: id_product,
       },
       data: updateProductDto,
+    });
+  }
+
+  async updateProductImage(
+    id_product: string,
+    updateProductDto: UpdateProductDto,
+    image: Express.Multer.File,
+  ) {
+    return this.prisma.product.update({
+      where: {
+        id_product: id_product,
+      },
+      data: {
+        ...updateProductDto,
+        product_image_url: await uploadImage(id_product, 'products', image),
+      },
     });
   }
 
