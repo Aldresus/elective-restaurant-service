@@ -25,7 +25,8 @@ export class MenuService {
           ],
         },
       });
-    } else if (deleted === 'false') {
+    }
+    if (deleted === 'false') {
       return this.prisma.menu.findMany({
         where: {
           AND: [
@@ -34,13 +35,13 @@ export class MenuService {
           ],
         },
       });
-    } else {
-      return this.prisma.menu.findMany({
-        where: {
-          id_restaurant: id_restaurant === '' ? undefined : id_restaurant,
-        },
-      });
     }
+
+    return this.prisma.menu.findMany({
+      where: {
+        id_restaurant: id_restaurant === '' ? undefined : id_restaurant,
+      },
+    });
   }
 
   update(id_menu: string, updateMenuDto: UpdateMenuDto) {

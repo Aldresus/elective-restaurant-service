@@ -30,6 +30,9 @@ export class MenuEntity implements Menu {
   menu_ordered_categories: string;
 
   @ApiProperty()
+  ids_product: string[];
+
+  @ApiProperty()
   createdAt: Date;
 
   @ApiProperty()

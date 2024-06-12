@@ -24,6 +24,9 @@ export class ProductEntity implements Product {
   id_restaurant: string;
 
   @ApiProperty()
+  ids_menus_products: string[];
+
+  @ApiProperty()
   deleted: boolean;
 
   @ApiProperty()

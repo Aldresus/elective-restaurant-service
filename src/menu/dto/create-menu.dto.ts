@@ -20,5 +20,8 @@ export class CreateMenuDto {
   id_restaurant: string;
 
   @ApiProperty()
+  ids_product: string[];
+
+  @ApiProperty()
   menu_ordered_categories: string;
 }

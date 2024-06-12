@@ -51,7 +51,8 @@ model Product {
   id_restaurant     String           @db.ObjectId
   createdAt         DateTime         @default(now())
   updatedAt         DateTime         @updatedAt
-  Menus_Products    Menus_Products[]
+  ids_menus_products String[]         @db.ObjectId
+  Menus_Products    Menu[]            @relation(fields: [ids_menus_products], references: [id_menu])
 }
 
 model Menu {
@@ -67,13 +68,14 @@ model Menu {
   id_restaurant           String           @db.ObjectId
   createdAt               DateTime         @default(now())
   updatedAt               DateTime         @updatedAt
-  Menus_Products          Menus_Products[]
-}
+  ids_product             String[]         @db.ObjectId
+  Products                Product[]        @relation(fields: [ids_product], references: [id_product])
+} 
 
-model Menus_Products {
-  id_menus_products String  @id @default(auto()) @map("_id") @db.ObjectId
-  product           Product @relation(fields: [productId], references: [id_product])
-  productId         String  @db.ObjectId
-  menu              Menu    @relation(fields: [menuId], references: [id_menu])
-  menuId            String  @db.ObjectId
-}
+// model Menus_Products {
+//   id_menus_products String  @id @default(auto()) @map("_id") @db.ObjectId
+//   product           Product @relation(fields: [productId], references: [id_product])
+//   productId         String  @db.ObjectId
+//   menu              Menu    @relation(fields: [menuId], references: [id_menu])
+//   menuId            String  @db.ObjectId
+// }
