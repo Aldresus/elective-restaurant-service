@@ -21,24 +21,12 @@ export class RestaurantService {
     image?: Express.Multer.File,
   ) {
     try {
-      await this.prisma.restaurant
-        .create({
-          data: createRestaurantDto,
-        })
-        .then(async (restaurant) => {
-          return this.prisma.restaurant.update({
-            where: {
-              id_restaurant: restaurant.id_restaurant,
-            },
-            data: {
-              banner_url: await uploadImage(
-                restaurant.id_restaurant,
-                'restaurants',
-                image,
-              ),
-            },
-          });
-        });
+      await this.prisma.restaurant.create({
+        data: {
+          ...createRestaurantDto,
+          banner_url: await uploadImage('restaurants', image),
+        },
+      });
     } catch (err) {
       console.error(err);
       throw err;
@@ -101,7 +89,7 @@ export class RestaurantService {
       },
       data: {
         ...updateRestaurantDto,
-        banner_url: await uploadImage(id_restaurant, 'restaurants', image),
+        banner_url: await uploadImage('restaurants', image),
       },
     });
   }

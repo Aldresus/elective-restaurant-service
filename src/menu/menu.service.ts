@@ -21,24 +21,12 @@ export class MenuService {
     menu_image?: Express.Multer.File,
   ) {
     try {
-      await this.prisma.menu
-        .create({
-          data: createMenuDto,
-        })
-        .then(async (menu) => {
-          return this.prisma.menu.update({
-            where: {
-              id_menu: menu.id_menu,
-            },
-            data: {
-              menu_image_url: await uploadImage(
-                menu.id_menu,
-                'menus',
-                menu_image,
-              ),
-            },
-          });
-        });
+      await this.prisma.menu.create({
+        data: {
+          ...createMenuDto,
+          menu_image_url: await uploadImage('menus', menu_image),
+        },
+      });
     } catch (err) {
       console.error(err);
       throw err;
@@ -94,7 +82,7 @@ export class MenuService {
       },
       data: {
         ...updateMenuDto,
-        menu_image_url: await uploadImage(id_menu, 'menus', image),
+        menu_image_url: await uploadImage('menus', image),
       },
     });
   }

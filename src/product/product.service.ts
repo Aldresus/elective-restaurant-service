@@ -21,24 +21,12 @@ export class ProductService {
     product_image?: Express.Multer.File,
   ) {
     try {
-      await this.prisma.product
-        .create({
-          data: createProductDto,
-        })
-        .then(async (product) => {
-          return this.prisma.product.update({
-            where: {
-              id_product: product.id_product,
-            },
-            data: {
-              product_image_url: await uploadImage(
-                product.id_product,
-                'products',
-                product_image,
-              ),
-            },
-          });
-        });
+      await this.prisma.product.create({
+        data: {
+          ...createProductDto,
+          product_image_url: await uploadImage('products', product_image),
+        },
+      });
     } catch (err) {
       console.error(err);
       throw err;
@@ -89,7 +77,7 @@ export class ProductService {
       },
       data: {
         ...updateProductDto,
-        product_image_url: await uploadImage(id_product, 'products', image),
+        product_image_url: await uploadImage('products', image),
       },
     });
   }
