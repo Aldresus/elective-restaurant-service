@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import type { CreateRestaurantDto } from './dto/create-restaurant.dto';
 import type { UpdateRestaurantDto } from './dto/update-restaurant.dto';
-import { PrismaService } from 'src/prisma.service';
+import type { PrismaService } from 'src/prisma.service';
 
 @Injectable()
 export class RestaurantService {
@@ -37,7 +37,7 @@ export class RestaurantService {
             price_range: data.price_range === '' ? undefined : data.price_range,
           },
           {
-            category: data.category === '' ? undefined : data.category,
+            food_type: data.category === '' ? undefined : data.category,
           },
           {
             rating: {

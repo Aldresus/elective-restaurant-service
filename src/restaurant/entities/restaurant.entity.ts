@@ -15,7 +15,7 @@ export class RestaurantEntity implements Restaurant {
   email: string;
 
   @ApiProperty()
-  category: string;
+  food_type: string;
 
   @ApiProperty()
   price_range: string;
@@ -37,9 +37,6 @@ export class RestaurantEntity implements Restaurant {
 
   @ApiProperty()
   business_hours: string;
-
-  @ApiProperty()
-  restaurant_order_categories: string;
 
   @ApiProperty()
   createdAt: Date;

@@ -1,4 +1,4 @@
-import { PrismaService } from '../prisma.service';
+import type { PrismaService } from '../prisma.service';
 import { Injectable } from '@nestjs/common';
 import type { CreateProductDto } from './dto/create-product.dto';
 import type { UpdateProductDto } from './dto/update-product.dto';
@@ -23,20 +23,20 @@ export class ProductService {
           deleted: true,
         },
       });
-    } else if (deleted === 'false') {
+    }
+    if (deleted === 'false') {
       return this.prisma.product.findMany({
         where: {
           id_restaurant: id_restaurant === '' ? undefined : id_restaurant,
           deleted: false,
         },
       });
-    } else {
-      return this.prisma.product.findMany({
-        where: {
-          id_restaurant: id_restaurant === '' ? undefined : id_restaurant,
-        },
-      });
     }
+    return this.prisma.product.findMany({
+      where: {
+        id_restaurant: id_restaurant === '' ? undefined : id_restaurant,
+      },
+    });
   }
 
   update(id_product: string, updateProductDto: UpdateProductDto) {

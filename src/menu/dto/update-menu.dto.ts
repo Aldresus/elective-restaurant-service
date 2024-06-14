@@ -10,23 +10,54 @@ export class UpdateMenuDto extends PartialType(CreateMenuDto) {
   description: string;
 
   @ApiProperty()
-  price: number;
-
-  @ApiProperty()
   menu_image_url?: string;
 
   @ApiProperty()
-  category: string;
+  deleted: boolean;
 
   @ApiProperty()
-  deleted: boolean;
+  price: number;
+
+  @ApiProperty()
+  food_type: string;
 
   @ApiProperty({ default: '111111111111111111111111' })
   id_restaurant: string;
 
   @ApiProperty({ default: [] })
-  ids_product: string[];
+  ids_menu_category: string[];
 
-  @ApiProperty()
-  menu_ordered_categories: string;
+  @ApiProperty({ default: [] })
+  ids_restaurant_category: string[];
+
+  @ApiProperty({ default: [] })
+  ids_product: string[];
 }
+// {
+//   @ApiProperty()
+//   name: string;
+
+//   @ApiProperty()
+//   description: string;
+
+//   @ApiProperty()
+//   price: number;
+
+//   @ApiProperty()
+//   menu_image_url?: string;
+
+//   @ApiProperty()
+//   category: string;
+
+//   @ApiProperty()
+//   deleted: boolean;
+
+//   @ApiProperty({ default: '111111111111111111111111' })
+//   id_restaurant: string;
+
+//   @ApiProperty({ default: [] })
+//   ids_product: string[];
+
+//   @ApiProperty()
+//   menu_ordered_categories: string;
+// }

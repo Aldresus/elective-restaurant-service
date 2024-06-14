@@ -11,11 +11,39 @@ export class CreateProductDto {
   description: string;
 
   @ApiProperty()
-  product_image_url?: string;
+  product_image_url: string;
 
   @ApiProperty()
-  category: string;
+  food: string;
 
   @ApiProperty({ default: '111111111111111111111111' })
   id_restaurant: string;
+
+  @ApiProperty({ default: [] })
+  ids_menus_products: string[];
+
+  @ApiProperty({ default: [] })
+  ids_menu_category: string[];
+
+  @ApiProperty({ default: [] })
+  ids_restaurant_category: string[];
 }
+// {
+//   @ApiProperty()
+//   name: string;
+
+//   @ApiProperty()
+//   price: number;
+
+//   @ApiProperty()
+//   description: string;
+
+//   @ApiProperty()
+//   product_image_url?: string;
+
+//   @ApiProperty()
+//   category: string;
+
+//   @ApiProperty({ default: '111111111111111111111111' })
+//   id_restaurant: string;
+// }
