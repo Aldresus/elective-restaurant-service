@@ -21,5 +21,17 @@ RUN npx prisma generate
 # Creates a "dist" folder with the production build
 RUN npm run build
 
+# Script to determine the correct path of the main.js file
+RUN echo "#!/bin/sh\n\
+if [ -f /usr/src/app/dist/main.js ]; then\n\
+  exec node /usr/src/app/dist/main.js\n\
+elif [ -f /usr/src/app/dist/src/main.js ]; then\n\
+  exec node /usr/src/app/dist/src/main.js\n\
+else\n\
+  echo 'Error: main.js not found'\n\
+  exit 1\n\
+fi" > /usr/src/app/start.sh \
+&& chmod +x /usr/src/app/start.sh
+
 # Start the server using the production build
-CMD [ "node", "dist/main.js" ]
+CMD [ "/usr/src/app/start.sh" ]
