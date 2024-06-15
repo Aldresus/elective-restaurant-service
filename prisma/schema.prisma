@@ -40,7 +40,7 @@ model Restaurant {
 }
 
 model Restaurant_Category {
-  id_restaurant_category      String                   @id @default(auto()) @map("_id") @db.ObjectId
+  id_restaurant_category      String                   @id @default(auto()) @map("_id") @db.ObjectId 
   name                        String
   ids_menu                    String[]                 @db.ObjectId
   Menus                       Menu[]                   @relation(fields: [ids_menu], references: [id_menu])
@@ -83,7 +83,6 @@ model Menu {
   price                       Float
   description                 String
   menu_image_url              String                   @default("")
-  food_type                   String
   deleted                     Boolean                  @default(false)
   restaurant                  Restaurant               @relation(fields: [id_restaurant], references: [id_restaurant])
   id_restaurant               String                   @db.ObjectId
