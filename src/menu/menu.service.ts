@@ -14,6 +14,21 @@ export class MenuService {
     });
   }
 
+  getById(id_menu: string) {
+    return this.prisma.menu.findUnique({
+      where: {
+        id_menu: id_menu,
+      },
+      include: {
+        Menu_Categories: {
+          include: {
+            Product: true,
+          },
+        },
+      },
+    });
+  }
+
   findMany(id_restaurant: string, deleted: string) {
     if (deleted === 'true') {
       return this.prisma.menu.findMany({

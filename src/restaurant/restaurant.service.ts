@@ -51,6 +51,22 @@ export class RestaurantService {
     });
   }
 
+  getById(id_restaurant: string) {
+    return this.prisma.restaurant.findUnique({
+      where: {
+        id_restaurant: id_restaurant,
+      },
+      include: {
+        Restaurant_Categories: {
+          include: {
+            Products: true,
+            Menus: true,
+          },
+        },
+      },
+    });
+  }
+
   update(id_restaurant: string, updateRestaurantDto: UpdateRestaurantDto) {
     return this.prisma.restaurant.update({
       where: {

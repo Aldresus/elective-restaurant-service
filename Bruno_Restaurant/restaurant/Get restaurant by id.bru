@@ -1,0 +1,16 @@
+meta {
+  name: Get restaurant by id
+  type: http
+  seq: 6
+}
+
+get {
+  url: http://localhost:3000/api/restaurant?city=Strasbourg&category=French
+  body: none
+  auth: none
+}
+
+params:query {
+  city: Strasbourg
+  category: French
+}
