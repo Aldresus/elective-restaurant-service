@@ -1,4 +1,4 @@
-import type { PrismaService } from '../prisma.service';
+import { PrismaService } from 'src/prisma.service';
 import { Injectable } from '@nestjs/common';
 import type { CreateProductDto } from './dto/create-product.dto';
 import type { UpdateProductDto } from './dto/update-product.dto';

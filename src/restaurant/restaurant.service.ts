@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import type { CreateRestaurantDto } from './dto/create-restaurant.dto';
 import type { UpdateRestaurantDto } from './dto/update-restaurant.dto';
-import type { PrismaService } from 'src/prisma.service';
+import { PrismaService } from 'src/prisma.service';
 
 @Injectable()
 export class RestaurantService {
