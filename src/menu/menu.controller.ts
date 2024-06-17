@@ -31,6 +31,7 @@ export class MenuController {
   @ApiCreatedResponse({ type: MenuEntity })
   @ApiBody({ type: CreateMenuDto })
   create(@Body() createMenuDto: CreateMenuDto) {
+    console.log('Create menu dto', createMenuDto);
     return this.menuService.create(createMenuDto);
   }
 

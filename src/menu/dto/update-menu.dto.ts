@@ -13,9 +13,6 @@ export class UpdateMenuDto extends PartialType(CreateMenuDto) {
   menu_image_url?: string;
 
   @ApiProperty()
-  deleted: boolean;
-
-  @ApiProperty()
   price: number;
 
   @ApiProperty({ default: '111111111111111111111111' })
@@ -26,9 +23,6 @@ export class UpdateMenuDto extends PartialType(CreateMenuDto) {
 
   @ApiProperty({ default: [] })
   ids_restaurant_category: string[];
-
-  @ApiProperty({ default: [] })
-  ids_product: string[];
 }
 // {
 //   @ApiProperty()

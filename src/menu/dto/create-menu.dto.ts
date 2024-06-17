@@ -21,9 +21,6 @@ export class CreateMenuDto {
 
   @ApiProperty()
   ids_restaurant_category: string[];
-
-  @ApiProperty()
-  ids_product: string[];
 }
 
 // {

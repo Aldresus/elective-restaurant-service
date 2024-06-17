@@ -18,9 +18,6 @@ export class MenuEntity implements Menu {
   price: number;
 
   @ApiProperty()
-  deleted: boolean;
-
-  @ApiProperty()
   id_restaurant: string;
 
   @ApiProperty()
@@ -28,9 +25,6 @@ export class MenuEntity implements Menu {
 
   @ApiProperty()
   ids_restaurant_category: string[];
-
-  @ApiProperty()
-  ids_product: string[];
 
   @ApiProperty()
   createdAt: Date;

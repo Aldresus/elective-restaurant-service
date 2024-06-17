@@ -30,9 +30,6 @@ export class ProductEntity implements Product {
   ids_restaurant_category: string[];
 
   @ApiProperty()
-  deleted: boolean;
-
-  @ApiProperty()
   createdAt: Date;
 
   @ApiProperty()

@@ -22,7 +22,6 @@ async function main() {
       price: 10.0,
       description: 'Pate au parmesan et beurre, delicioso !',
       product_image_url: 'https://picsum.photos/200',
-      deleted: false,
       restaurant: {
         connect: { id_restaurant: pastaDellamama.id_restaurant },
       },
@@ -35,7 +34,6 @@ async function main() {
       price: 10.0,
       description: 'Pate au grano padano, oeuf et pancetta, delicioso !',
       product_image_url: 'https://picsum.photos/200',
-      deleted: false,
       restaurant: {
         connect: { id_restaurant: pastaDellamama.id_restaurant },
       },
@@ -48,7 +46,6 @@ async function main() {
       price: 10.0,
       description: 'Pate au tomate, pommes de terre et parmesan, delicioso !',
       product_image_url: 'https://picsum.photos/200',
-      deleted: false,
       restaurant: {
         connect: { id_restaurant: pastaDellamama.id_restaurant },
       },
@@ -61,7 +58,6 @@ async function main() {
       price: 10.0,
       description: 'Coca bien frais chacal',
       product_image_url: 'https://picsum.photos/200',
-      deleted: false,
       restaurant: {
         connect: { id_restaurant: pastaDellamama.id_restaurant },
       },
@@ -74,7 +70,6 @@ async function main() {
       price: 10.0,
       description: 'Limonade chacal',
       product_image_url: 'https://picsum.photos/200',
-      deleted: false,
       restaurant: {
         connect: { id_restaurant: pastaDellamama.id_restaurant },
       },
@@ -87,7 +82,6 @@ async function main() {
       price: 10.0,
       description: 'Biere chacal',
       product_image_url: 'https://picsum.photos/200',
-      deleted: false,
       restaurant: {
         connect: { id_restaurant: pastaDellamama.id_restaurant },
       },
@@ -100,7 +94,6 @@ async function main() {
       price: 10.0,
       description: 'Beurre bien doux chacal',
       product_image_url: 'https://picsum.photos/200',
-      deleted: false,
       restaurant: {
         connect: { id_restaurant: pastaDellamama.id_restaurant },
       },
@@ -113,7 +106,6 @@ async function main() {
       price: 10.0,
       description: 'Beurre demi sel chacal',
       product_image_url: 'https://picsum.photos/200',
-      deleted: false,
       restaurant: {
         connect: { id_restaurant: pastaDellamama.id_restaurant },
       },
@@ -126,7 +118,6 @@ async function main() {
       price: 10.0,
       description: 'Formule pate, boisson et beurre, delicioso !',
       menu_image_url: 'https://picsum.photos/200',
-      deleted: false,
       restaurant: {
         connect: { id_restaurant: pastaDellamama.id_restaurant },
       },
@@ -265,7 +256,6 @@ async function main() {
       price: 8.0,
       description: 'Juicy beef patty with lettuce, tomato, and cheese',
       product_image_url: 'https://picsum.photos/200',
-      deleted: false,
       restaurant: {
         connect: { id_restaurant: burgerParadise.id_restaurant },
       },
@@ -278,7 +268,6 @@ async function main() {
       price: 9.5,
       description: 'Beef patty with BBQ sauce, onion rings, and cheddar cheese',
       product_image_url: 'https://picsum.photos/200',
-      deleted: false,
       restaurant: {
         connect: { id_restaurant: burgerParadise.id_restaurant },
       },
@@ -291,7 +280,6 @@ async function main() {
       price: 7.5,
       description: 'Plant-based patty with avocado, lettuce, and tomato',
       product_image_url: 'https://picsum.photos/200',
-      deleted: false,
       restaurant: {
         connect: { id_restaurant: burgerParadise.id_restaurant },
       },
@@ -304,7 +292,6 @@ async function main() {
       price: 3.0,
       description: 'Crispy golden fries',
       product_image_url: 'https://picsum.photos/200',
-      deleted: false,
       restaurant: {
         connect: { id_restaurant: burgerParadise.id_restaurant },
       },
@@ -317,7 +304,6 @@ async function main() {
       price: 4.0,
       description: 'Breaded and fried onion rings',
       product_image_url: 'https://picsum.photos/200',
-      deleted: false,
       restaurant: {
         connect: { id_restaurant: burgerParadise.id_restaurant },
       },
@@ -330,7 +316,6 @@ async function main() {
       price: 2.0,
       description: 'Refreshing cola drink',
       product_image_url: 'https://picsum.photos/200',
-      deleted: false,
       restaurant: {
         connect: { id_restaurant: burgerParadise.id_restaurant },
       },
@@ -343,7 +328,6 @@ async function main() {
       price: 2.5,
       description: 'Freshly squeezed lemonade',
       product_image_url: 'https://picsum.photos/200',
-      deleted: false,
       restaurant: {
         connect: {
           id_restaurant: burgerParadise.id_restaurant,
@@ -358,7 +342,6 @@ async function main() {
       price: 12.0,
       description: 'Your choice of burger with fries and a drink',
       menu_image_url: 'https://picsum.photos/200',
-      deleted: false,
       restaurant: {
         connect: { id_restaurant: burgerParadise.id_restaurant },
       },
@@ -492,7 +475,6 @@ async function main() {
       description:
         'Crab, avocado, and cucumber rolled in sushi rice and seaweed',
       product_image_url: 'https://picsum.photos/200',
-      deleted: false,
       restaurant: {
         connect: { id_restaurant: sushiHouse.id_restaurant },
       },
@@ -505,7 +487,6 @@ async function main() {
       price: 9.0,
       description: 'Spicy tuna and cucumber rolled in sushi rice and seaweed',
       product_image_url: 'https://picsum.photos/200',
-      deleted: false,
       restaurant: {
         connect: { id_restaurant: sushiHouse.id_restaurant },
       },
@@ -518,7 +499,6 @@ async function main() {
       price: 7.0,
       description: 'Fresh salmon served on top of sushi rice',
       product_image_url: 'https://picsum.photos/200',
-      deleted: false,
       restaurant: {
         connect: { id_restaurant: sushiHouse.id_restaurant },
       },
@@ -531,7 +511,6 @@ async function main() {
       price: 4.0,
       description: 'Traditional Japanese soup with miso paste and tofu',
       product_image_url: 'https://picsum.photos/200',
-      deleted: false,
       restaurant: {
         connect: { id_restaurant: sushiHouse.id_restaurant },
       },
@@ -544,7 +523,6 @@ async function main() {
       price: 5.0,
       description: 'Steamed and salted soybeans',
       product_image_url: 'https://picsum.photos/200',
-      deleted: false,
       restaurant: {
         connect: { id_restaurant: sushiHouse.id_restaurant },
       },
@@ -557,7 +535,6 @@ async function main() {
       price: 3.0,
       description: 'Refreshing Japanese green tea',
       product_image_url: 'https://picsum.photos/200',
-      deleted: false,
       restaurant: {
         connect: { id_restaurant: sushiHouse.id_restaurant },
       },
@@ -570,7 +547,6 @@ async function main() {
       price: 25.0,
       description: 'A selection of three premium Japanese sakes',
       menu_image_url: 'https://picsum.photos/200',
-      deleted: false,
       restaurant: {
         connect: { id_restaurant: sushiHouse.id_restaurant },
       },
@@ -585,7 +561,6 @@ async function main() {
                   price: 10.0,
                   description: 'Smooth and fragrant sake',
                   product_image_url: 'https://picsum.photos/200',
-                  deleted: false,
                   restaurant: {
                     connect: { id_restaurant: sushiHouse.id_restaurant },
                   },
@@ -595,7 +570,6 @@ async function main() {
                   price: 12.0,
                   description: 'Premium sake with delicate flavors',
                   product_image_url: 'https://picsum.photos/200',
-                  deleted: false,
                   restaurant: {
                     connect: { id_restaurant: sushiHouse.id_restaurant },
                   },
@@ -605,7 +579,6 @@ async function main() {
                   price: 9.0,
                   description: 'Unfiltered sake with a creamy texture',
                   product_image_url: 'https://picsum.photos/200',
-                  deleted: false,
                   restaurant: {
                     connect: { id_restaurant: sushiHouse.id_restaurant },
                   },
@@ -624,7 +597,6 @@ async function main() {
       price: 18.0,
       description: 'A combination of sushi rolls and nigiri',
       menu_image_url: 'https://picsum.photos/200',
-      deleted: false,
       restaurant: {
         connect: { id_restaurant: sushiHouse.id_restaurant },
       },
