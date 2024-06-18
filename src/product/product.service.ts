@@ -24,11 +24,11 @@ export class ProductService {
   }
 
   findUnique(id_product: string) {
-      return this.prisma.product.findUnique({
-        where: {
-          id_product: id_product === '' ? undefined : id_product
-        },
-      });
+    return this.prisma.product.findUnique({
+      where: {
+        id_product: id_product === '' ? undefined : id_product,
+      },
+    });
   }
 
   update(id_product: string, updateProductDto: UpdateProductDto) {
