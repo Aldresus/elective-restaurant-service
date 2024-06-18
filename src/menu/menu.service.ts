@@ -3,6 +3,9 @@ import type { CreateMenuDto } from './dto/create-menu.dto';
 import type { UpdateMenuDto } from './dto/update-menu.dto';
 import { PrismaService } from 'src/prisma.service';
 import { UpdateProductCategoryDto } from './dto/update-category';
+import { CreateCategoryDto } from './dto/create-category';
+import { connect } from 'http2';
+import { Prisma } from '@prisma/client';
 @Injectable()
 export class MenuService {
   constructor(private prisma: PrismaService) {}
@@ -55,10 +58,26 @@ export class MenuService {
     });
   }
 
+  createCategory(createCategoryDto: CreateCategoryDto) {
+
+    return this.prisma.menu_Category.create({
+      data: {
+        name: createCategoryDto.name,
+        ids_product: createCategoryDto.ids_product,
+        Menus: {
+          connect: createCategoryDto.ids_menu.map(id => ({
+            id_menu: id
+          })),
+        }
+      }
+    })
+  }
+
   updateCategory(updateProductCategoryDto: UpdateProductCategoryDto){
 
     return this.prisma.$transaction(async (prisma) => {
       // Update the category
+      console.log(updateProductCategoryDto)
       const updatedCategory = await prisma.menu_Category.update({
         where: {
           id_category: updateProductCategoryDto.id_category,
@@ -74,6 +93,14 @@ export class MenuService {
       })
 
       return updatedCategory
+    })
+  }
+
+  removeCategory(id_category: string){
+    return this.prisma.menu_Category.delete({
+      where: {
+        id_category: id_category
+      }
     })
   }
 }

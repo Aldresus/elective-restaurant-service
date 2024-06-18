@@ -22,6 +22,7 @@ import {
 import { MenuEntity } from './entities/menu.entity';
 import { CategoryEntity } from './entities/category.entity';
 import { UpdateCategoryDto, UpdateProductCategoryDto } from './dto/update-category';
+import { CreateCategoryDto } from './dto/create-category';
 
 @Controller('api/menu')
 @ApiTags('menu')
@@ -35,6 +36,14 @@ export class MenuController {
   create(@Body() createMenuDto: CreateMenuDto) {
     console.log('Create menu dto', createMenuDto);
     return this.menuService.create(createMenuDto);
+  }
+
+  @Post('category')
+  @ApiOperation({ summary: 'Create a category' })
+  @ApiCreatedResponse({ type: CategoryEntity })
+  @ApiBody({ type: CreateCategoryDto })
+  createCategory(@Body() createCategoryDto: CreateCategoryDto) {
+    return this.menuService.createCategory(createCategoryDto);
   }
 
   @Get(':id')
@@ -81,5 +90,13 @@ export class MenuController {
   @ApiParam({ name: 'id', type: String })
   remove(@Param('id') id_menu: string) {
     return this.menuService.remove(id_menu);
+  }
+
+  @Delete('category/:id')
+  @ApiOperation({ summary: 'Delete category with ID' })
+  @ApiCreatedResponse({ type: CategoryEntity })
+  @ApiParam({ name: 'id', type: String })
+  removeCategory(@Param('id') id_category: string) {
+    return this.menuService.removeCategory(id_category);
   }
 }
