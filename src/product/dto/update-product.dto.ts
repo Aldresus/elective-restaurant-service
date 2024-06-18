@@ -26,9 +26,6 @@ export class UpdateProductDto extends PartialType(CreateProductDto) {
 
   @ApiProperty({ default: [] })
   ids_restaurant_category: string[];
-
-  @ApiProperty()
-  deleted: boolean;
 }
 // {
 //   @ApiProperty()
