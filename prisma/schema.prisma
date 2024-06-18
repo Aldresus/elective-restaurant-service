@@ -42,9 +42,9 @@ model Restaurant {
 model Restaurant_Category {
   id_restaurant_category      String                   @id @default(auto()) @map("_id") @db.ObjectId 
   name                        String
-  ids_menu                    String[]                 @db.ObjectId
+  ids_menu                    String[]                 @db.ObjectId @default([])
   Menus                       Menu[]                   @relation(fields: [ids_menu], references: [id_menu])
-  ids_product                 String[]                 @db.ObjectId
+  ids_product                 String[]                 @db.ObjectId @default([])
   Products                    Product[]                @relation(fields: [ids_product], references: [id_product])
 
   id_restaurant               String                   @db.ObjectId
@@ -61,19 +61,19 @@ model Product {
   id_restaurant               String                   @db.ObjectId
   createdAt                   DateTime                 @default(now())
   updatedAt                   DateTime                 @updatedAt
-  ids_menu_category           String[]                 @db.ObjectId
+  ids_menu_category           String[]                 @db.ObjectId @default([])
   Menu_Categories             Menu_Category[]          @relation(fields: [ids_menu_category], references: [id_category])
 
-  ids_restaurant_category     String[]                 @db.ObjectId
+  ids_restaurant_category     String[]                 @db.ObjectId @default([])
   Restaurant_Categories       Restaurant_Category[]    @relation(fields: [ids_restaurant_category], references: [id_restaurant_category])
 }
 
 model Menu_Category {
   id_category                 String                   @id @default(auto()) @map("_id") @db.ObjectId
   name                        String
-  ids_product                 String[]                 @db.ObjectId
+  ids_product                 String[]                 @db.ObjectId @default([])
   Product                     Product[]                @relation(fields: [ids_product], references: [id_product])
-  ids_menu                    String[]                 @db.ObjectId
+  ids_menu                    String[]                 @db.ObjectId @default([])
   Menus                       Menu[]                   @relation(fields: [ids_menu], references: [id_menu])
 } 
 model Menu {
@@ -86,9 +86,9 @@ model Menu {
   id_restaurant               String                   @db.ObjectId
   createdAt                   DateTime                 @default(now())
   updatedAt                   DateTime                 @updatedAt
-  ids_menu_category           String[]                 @db.ObjectId
+  ids_menu_category           String[]                 @db.ObjectId @default([])
   Menu_Categories             Menu_Category[]          @relation(fields: [ids_menu_category], references: [id_category])
-  ids_restaurant_category     String[]                 @db.ObjectId
+  ids_restaurant_category     String[]                 @db.ObjectId @default([])
   Restaurant_Categories       Restaurant_Category[]    @relation(fields: [ids_restaurant_category], references: [id_restaurant_category])
 } 
 
