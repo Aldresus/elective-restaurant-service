@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import type { CreateMenuDto } from './dto/create-menu.dto';
 import type { UpdateMenuDto } from './dto/update-menu.dto';
 import { PrismaService } from 'src/prisma.service';
+import { UpdateProductCategoryDto } from './dto/update-category';
 @Injectable()
 export class MenuService {
   constructor(private prisma: PrismaService) {}
@@ -52,5 +53,27 @@ export class MenuService {
         id_menu: id_menu,
       },
     });
+  }
+
+  updateCategory(updateProductCategoryDto: UpdateProductCategoryDto){
+
+    return this.prisma.$transaction(async (prisma) => {
+      // Update the category
+      const updatedCategory = await prisma.menu_Category.update({
+        where: {
+          id_category: updateProductCategoryDto.id_category,
+        },
+        data: updateProductCategoryDto.updateCategoryDto,
+      });
+
+      const updatedProduct = await prisma.product.update({
+        where: {
+          id_product: updateProductCategoryDto.id_product
+        },
+        data: updateProductCategoryDto.updateProductDto,
+      })
+
+      return updatedCategory
+    })
   }
 }

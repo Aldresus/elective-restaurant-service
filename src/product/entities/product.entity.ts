@@ -15,6 +15,9 @@ export class ProductEntity implements Product {
   description: string;
 
   @ApiProperty()
+  deleted: boolean;
+
+  @ApiProperty()
   product_image_url: string;
 
   @ApiProperty()

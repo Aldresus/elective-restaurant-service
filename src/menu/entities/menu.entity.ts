@@ -18,6 +18,9 @@ export class MenuEntity implements Menu {
   price: number;
 
   @ApiProperty()
+  deleted: boolean;
+
+  @ApiProperty()
   id_restaurant: string;
 
   @ApiProperty()
