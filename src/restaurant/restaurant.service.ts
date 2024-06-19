@@ -2,6 +2,8 @@ import { Injectable } from '@nestjs/common';
 import type { CreateRestaurantDto } from './dto/create-restaurant.dto';
 import type { UpdateRestaurantDto } from './dto/update-restaurant.dto';
 import { PrismaService } from 'src/prisma.service';
+import { AddMenuInCategoryDto, AddProductInCategoryDto } from './dto/update-category';
+import { CreateRestaurantCategoryDto } from './dto/create-category';
 
 @Injectable()
 export class RestaurantService {
@@ -82,5 +84,143 @@ export class RestaurantService {
         id_restaurant: id_restaurant,
       },
     });
+  }
+
+  createCategory(createRestaurantCategoryDto: CreateRestaurantCategoryDto) {
+
+    console.log("id_restaurant: ", createRestaurantCategoryDto.id_restaurant);
+    return this.prisma.restaurant_Category.create({
+      
+      data: {
+        name: createRestaurantCategoryDto.name,
+        Products: {
+          connect: createRestaurantCategoryDto.ids_product.map(id => ({
+            id_product: id
+          }))
+        },
+        Menus: {
+          connect: createRestaurantCategoryDto.ids_menu.map(id => ({
+            id_menu: id
+          })),
+        },
+        Restaurant: {
+          connect: {id_restaurant: createRestaurantCategoryDto.id_restaurant},
+        }
+      }
+    })
+  }
+
+  addProductCategory(addProductInCategoryDto: AddProductInCategoryDto) {
+    return this.prisma.$transaction(async (prisma) => {
+      const { id_restaurant_category, updateCategoryDto } = addProductInCategoryDto;
+      const { ids_product } = updateCategoryDto;
+  
+      // Fetch the current products in the category
+      const currentCategory = await prisma.restaurant_Category.findUnique({
+        where: {
+          id_restaurant_category: id_restaurant_category,
+        },
+        include: {
+          Products: {
+            select: {
+              id_product: true,
+            },
+          },
+        },
+      });
+  
+      // Extract the current product ids
+      const currentProductIds = currentCategory.Products.map(product => product.id_product);
+  
+      // Determine the products to disconnect (those that are not in ids_product)
+      const idsToDisconnect = currentProductIds.filter(id => !ids_product.includes(id));
+  
+      // Disconnect products that are not in ids_product
+      await prisma.restaurant_Category.update({
+        where: {
+          id_restaurant_category: id_restaurant_category,
+        },
+        data: {
+          Products: {
+            disconnect: idsToDisconnect.map(id => ({ id_product: id })),
+          },
+        },
+      });
+  
+      // Connect the products that are in ids_product
+      const updatedCategory = await prisma.restaurant_Category.update({
+        where: {
+          id_restaurant_category: id_restaurant_category,
+        },
+        data: {
+          Products: {
+            connect: ids_product.map(id => ({ id_product: id })),
+          },
+        },
+      });
+  
+      return updatedCategory;
+    });
+  }
+
+  addMenuCategory(addMenuInCategoryDto: AddMenuInCategoryDto) {
+    return this.prisma.$transaction(async (prisma) => {
+      const { id_restaurant_category, updateCategoryDto } = addMenuInCategoryDto;
+      const { ids_menu } = updateCategoryDto;
+  
+      // Fetch the current menus in the category
+      const currentCategory = await prisma.restaurant_Category.findUnique({
+        where: {
+          id_restaurant_category: id_restaurant_category,
+        },
+        include: {
+          Menus: {
+            select: {
+              id_menu: true,
+            },
+          },
+        },
+      });
+  
+      // Extract the current menu ids
+      const currentMenuIds = currentCategory.Menus.map(menu => menu.id_menu);
+  
+      // Determine the menus to disconnect (those that are not in ids_menu)
+      const idsToDisconnect = currentMenuIds.filter(id => !ids_menu.includes(id));
+  
+      // Disconnect menus that are not in ids_menu
+      await prisma.restaurant_Category.update({
+        where: {
+          id_restaurant_category: id_restaurant_category,
+        },
+        data: {
+          Menus: {
+            disconnect: idsToDisconnect.map(id => ({ id_menu: id })),
+          },
+        },
+      });
+  
+      // Connect the menus that are in ids_menu
+      const updatedCategory = await prisma.restaurant_Category.update({
+        where: {
+          id_restaurant_category: id_restaurant_category,
+        },
+        data: {
+          Menus: {
+            connect: ids_menu.map(id => ({ id_menu: id })),
+          },
+        },
+      });
+  
+      return updatedCategory;
+    });
+  }
+
+  removeCategory(id_restaurant_category: string){
+    return this.prisma.restaurant_Category.delete({
+      where: {
+        id_restaurant_category: id_restaurant_category,
+      }
+    })
   }
 }

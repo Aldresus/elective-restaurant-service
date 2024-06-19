@@ -20,6 +20,9 @@ import {
   ApiQuery,
   ApiTags,
 } from '@nestjs/swagger';
+import { RestaurantCategoryEntity } from './entities/category.entity';
+import { AddMenuInCategoryDto, AddProductInCategoryDto } from './dto/update-category';
+import { CreateRestaurantCategoryDto } from './dto/create-category';
 
 @Controller('api/restaurant')
 @ApiTags('restaurant')
@@ -32,6 +35,14 @@ export class RestaurantController {
   @ApiBody({ type: CreateRestaurantDto })
   create(@Body() createRestaurantDto) {
     return this.restaurantsService.create(createRestaurantDto);
+  }
+
+  @Post('restaurantCategory')
+  @ApiOperation({ summary: 'Create a restaurant category' })
+  @ApiCreatedResponse({ type: RestaurantCategoryEntity })
+  @ApiBody({ type: CreateRestaurantCategoryDto })
+  createCategory(@Body() createRestaurantCategoryDto: CreateRestaurantCategoryDto) {
+    return this.restaurantsService.createCategory(createRestaurantCategoryDto);
   }
 
   @Get(':id')
@@ -72,6 +83,22 @@ export class RestaurantController {
     });
   }
 
+  @Patch('addProductCategory')
+  @ApiOperation({ summary: 'Update menu category with ID' })
+  @ApiCreatedResponse({ type: RestaurantCategoryEntity })
+  @ApiBody({ type: AddProductInCategoryDto })
+  addProductCategory(@Body() addProductInCategoryDto: AddProductInCategoryDto) {
+    return this.restaurantsService.addProductCategory(addProductInCategoryDto);
+  }
+
+  @Patch('addMenuCategory')
+  @ApiOperation({ summary: 'Update menu category with ID' })
+  @ApiCreatedResponse({ type: RestaurantCategoryEntity })
+  @ApiBody({ type: AddMenuInCategoryDto })
+  addMenuCategory(@Body() addMenuInCategoryDto: AddMenuInCategoryDto) {
+    return this.restaurantsService.addMenuCategory(addMenuInCategoryDto);
+  }
+
   @Patch(':id')
   @ApiOperation({ summary: 'Update restaurant with ID' })
   @ApiCreatedResponse({ type: RestaurantEntity })
@@ -87,5 +114,13 @@ export class RestaurantController {
   @ApiParam({ name: 'id', type: String })
   remove(@Param('id') id_restaurant: string) {
     return this.restaurantsService.remove(id_restaurant);
+  }
+
+  @Delete('category/:id')
+  @ApiOperation({ summary: 'Delete category with ID' })
+  @ApiCreatedResponse({ type: RestaurantCategoryEntity })
+  @ApiParam({ name: 'id', type: String })
+  removeCategory(@Param('id') id_restaurant_category: string) {
+    return this.restaurantsService.removeCategory(id_restaurant_category);
   }
 }
