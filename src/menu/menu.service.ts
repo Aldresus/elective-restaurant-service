@@ -38,6 +38,13 @@ export class MenuService {
           { id_restaurant: id_restaurant === '' ? undefined : id_restaurant },
         ],
       },
+      include: {
+        Menu_Categories: {
+          include: {
+            Product: true,
+          },
+        },
+      },
     });
   }
 
@@ -59,25 +66,23 @@ export class MenuService {
   }
 
   createCategory(createCategoryDto: CreateCategoryDto) {
-
     return this.prisma.menu_Category.create({
       data: {
         name: createCategoryDto.name,
         ids_product: createCategoryDto.ids_product,
         Menus: {
-          connect: createCategoryDto.ids_menu.map(id => ({
-            id_menu: id
+          connect: createCategoryDto.ids_menu.map((id) => ({
+            id_menu: id,
           })),
-        }
-      }
-    })
+        },
+      },
+    });
   }
 
-  updateCategory(updateProductCategoryDto: UpdateProductCategoryDto){
-
+  updateCategory(updateProductCategoryDto: UpdateProductCategoryDto) {
     return this.prisma.$transaction(async (prisma) => {
       // Update the category
-      console.log(updateProductCategoryDto)
+      console.log(updateProductCategoryDto);
       const updatedCategory = await prisma.menu_Category.update({
         where: {
           id_category: updateProductCategoryDto.id_category,
@@ -87,20 +92,20 @@ export class MenuService {
 
       const updatedProduct = await prisma.product.update({
         where: {
-          id_product: updateProductCategoryDto.id_product
+          id_product: updateProductCategoryDto.id_product,
         },
         data: updateProductCategoryDto.updateProductDto,
-      })
+      });
 
-      return updatedCategory
-    })
+      return updatedCategory;
+    });
   }
 
-  removeCategory(id_category: string){
+  removeCategory(id_category: string) {
     return this.prisma.menu_Category.delete({
       where: {
-        id_category: id_category
-      }
-    })
+        id_category: id_category,
+      },
+    });
   }
 }
