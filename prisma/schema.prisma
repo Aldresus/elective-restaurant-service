@@ -15,8 +15,10 @@ datasource db {
 
 model Users_Restaurants {
   id_user_restaurant          String                   @id @default(auto()) @map("_id") @db.ObjectId
-  id_restaurant               String                   @db.ObjectId
+  id_restaurant               String                   @db.ObjectId 
   id_user                     String                   @db.ObjectId
+
+  restaurant         Restaurant @relation(fields: [id_restaurant], references: [id_restaurant])
 }
 
 model Restaurant {
@@ -37,6 +39,7 @@ model Restaurant {
   Restaurant_Categories       Restaurant_Category[]  
   Menus                       Menu[]  
   Products                    Product[]
+  users_Restaurants           Users_Restaurants[]
 }
 
 model Restaurant_Category {

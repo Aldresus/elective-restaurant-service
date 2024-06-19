@@ -21,7 +21,10 @@ import {
   ApiTags,
 } from '@nestjs/swagger';
 import { RestaurantCategoryEntity } from './entities/category.entity';
-import { AddMenuInCategoryDto, AddProductInCategoryDto } from './dto/update-category';
+import {
+  AddMenuInCategoryDto,
+  AddProductInCategoryDto,
+} from './dto/update-category';
 import { CreateRestaurantCategoryDto } from './dto/create-category';
 
 @Controller('api/restaurant')
@@ -41,7 +44,9 @@ export class RestaurantController {
   @ApiOperation({ summary: 'Create a restaurant category' })
   @ApiCreatedResponse({ type: RestaurantCategoryEntity })
   @ApiBody({ type: CreateRestaurantCategoryDto })
-  createCategory(@Body() createRestaurantCategoryDto: CreateRestaurantCategoryDto) {
+  createCategory(
+    @Body() createRestaurantCategoryDto: CreateRestaurantCategoryDto,
+  ) {
     return this.restaurantsService.createCategory(createRestaurantCategoryDto);
   }
 
@@ -51,6 +56,13 @@ export class RestaurantController {
   @ApiParam({ name: 'id', type: String })
   getById(@Param('id') id_restaurant: string) {
     return this.restaurantsService.getById(id_restaurant);
+  }
+  @Get('user/:user_id')
+  @ApiOperation({ summary: 'Get restaurant ny user_id' })
+  @ApiCreatedResponse({ type: RestaurantEntity })
+  @ApiParam({ name: 'user_id', type: String })
+  getByUserId(@Param('user_id') user_id: string) {
+    return this.restaurantsService.getByUserId(user_id);
   }
 
   @Get()
