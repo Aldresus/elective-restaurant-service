@@ -11,8 +11,10 @@ pipeline {
             steps {
                 script {
                     try {
-                        sh "docker kill restaurant-service"
-                        sh "docker rm restaurant-service"
+                        sh "docker kill restaurant-service1"
+                        sh "docker kill restaurant-service2"
+                        sh "docker rm restaurant-service1"
+                        sh "docker rm restaurant-service2"
                         sh "docker rmi restaurant-service"
                     } catch (Exception e) {
                         echo "No existing image or container to remove"
@@ -48,7 +50,8 @@ pipeline {
         stage('deploy') {
             steps {
                 script {
-                    sh "docker run -d --name restaurant-service -p 9012:3000 --restart unless-stopped restaurant-service"
+                    sh "docker run -d --name restaurant-service1 --network elective_network --restart unless-stopped restaurant-service"
+                    sh "docker run -d --name restaurant-service2 --network elective_network --restart unless-stopped restaurant-service"
                 }
             }
             post {
