@@ -38,7 +38,7 @@ export class MenuService {
   }
 
   getById(id_menu: string) {
-    const test = this.prisma.menu.findUnique({
+    return this.prisma.menu.findUnique({
       where: {
         id_menu: id_menu,
       },
@@ -50,9 +50,6 @@ export class MenuService {
         },
       },
     });
-    console.log(test);
-
-    return test;
   }
 
   findMany(id_restaurant: string, deleted: string) {
