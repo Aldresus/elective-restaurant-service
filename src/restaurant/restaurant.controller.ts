@@ -37,7 +37,17 @@ import { CreateRestaurantCategoryDto } from './dto/create-category';
 export class RestaurantController {
   constructor(private readonly restaurantsService: RestaurantService) {}
 
-  @Post(':id_user')
+  @Post('/restaurantCategory')
+  @ApiOperation({ summary: 'Create a restaurant category' })
+  @ApiCreatedResponse({ type: RestaurantCategoryEntity })
+  @ApiBody({ type: CreateRestaurantCategoryDto })
+  createCategory(
+    @Body() createRestaurantCategoryDto: CreateRestaurantCategoryDto,
+  ) {
+    return this.restaurantsService.createCategory(createRestaurantCategoryDto);
+  }
+
+  @Post('/:id_user')
   @ApiOperation({ summary: 'Create a restaurant' })
   @ApiCreatedResponse({ type: RestaurantEntity })
   @ApiBody({ type: CreateRestaurantDto })
@@ -45,7 +55,7 @@ export class RestaurantController {
     return this.restaurantsService.create(createRestaurantDto, id_user);
   }
 
-  @Post(':id/image')
+  @Post('/:id/image')
   @ApiOperation({ summary: 'Create a restaurant with an image' })
   @ApiCreatedResponse({ type: RestaurantEntity })
   @ApiBody({ type: CreateRestaurantDto })
@@ -55,16 +65,6 @@ export class RestaurantController {
     @UploadedFile() image: Express.Multer.File,
   ) {
     return this.restaurantsService.createWithImage(createRestaurantDto, image);
-  }
-
-  @Post('restaurantCategory')
-  @ApiOperation({ summary: 'Create a restaurant category' })
-  @ApiCreatedResponse({ type: RestaurantCategoryEntity })
-  @ApiBody({ type: CreateRestaurantCategoryDto })
-  createCategory(
-    @Body() createRestaurantCategoryDto: CreateRestaurantCategoryDto,
-  ) {
-    return this.restaurantsService.createCategory(createRestaurantCategoryDto);
   }
 
   @Get(':id')
