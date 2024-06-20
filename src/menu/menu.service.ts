@@ -17,7 +17,7 @@ export class MenuService {
   }
 
   getById(id_menu: string) {
-    return this.prisma.menu.findUnique({
+    const test = this.prisma.menu.findUnique({
       where: {
         id_menu: id_menu,
       },
@@ -29,10 +29,13 @@ export class MenuService {
         },
       },
     });
+    console.log(test);
+
+    return test;
   }
 
   findMany(id_restaurant: string, deleted: string) {
-    const test = this.prisma.menu.findMany({
+    return this.prisma.menu.findMany({
       where: {
         AND: [
           { id_restaurant: id_restaurant === '' ? undefined : id_restaurant },
@@ -47,9 +50,6 @@ export class MenuService {
         },
       },
     });
-
-    console.log(test);
-    return test;
   }
 
   update(id_menu: string, updateMenuDto: UpdateMenuDto) {
