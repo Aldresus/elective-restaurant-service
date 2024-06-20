@@ -25,9 +25,11 @@ import { MenuEntity } from './entities/menu.entity';
 
 import { FileInterceptor } from '@nestjs/platform-express';
 import { CategoryEntity } from './entities/category.entity';
-import { UpdateCategoryDto, UpdateProductCategoryDto } from './dto/update-category';
+import {
+  UpdateCategoryDto,
+  UpdateProductCategoryDto,
+} from './dto/update-category';
 import { CreateCategoryDto } from './dto/create-category';
-
 
 @Controller('api/menu')
 @ApiTags('menu')
@@ -43,7 +45,6 @@ export class MenuController {
     return this.menuService.create(createMenuDto);
   }
 
-
   @Post(':id/image')
   @ApiOperation({ summary: 'Create a menu with an image' })
   @ApiCreatedResponse({ type: MenuEntity })
@@ -54,9 +55,8 @@ export class MenuController {
     @UploadedFile() image: Express.Multer.File,
   ) {
     return this.menuService.createWithImage(createMenuDto, image);
-    }
+  }
 
-      
   @Post('category')
   @ApiOperation({ summary: 'Create a category' })
   @ApiCreatedResponse({ type: CategoryEntity })
@@ -70,8 +70,9 @@ export class MenuController {
   @ApiCreatedResponse({ type: MenuEntity })
   @ApiParam({ name: 'id', type: String })
   getById(@Param('id') id_menu: string) {
-    return this.menuService.getById(id_menu);
-
+    const test = this.menuService.getById(id_menu);
+    console.log(id_menu, test);
+    return test;
   }
 
   @Get()
