@@ -32,7 +32,6 @@ import {
 } from './dto/update-category';
 import { CreateRestaurantCategoryDto } from './dto/create-category';
 
-
 @Controller('api/restaurant')
 @ApiTags('restaurant')
 export class RestaurantController {
@@ -45,7 +44,6 @@ export class RestaurantController {
   create(@Body() createRestaurantDto) {
     return this.restaurantsService.create(createRestaurantDto);
   }
-
 
   @Post(':id/image')
   @ApiOperation({ summary: 'Create a restaurant with an image' })

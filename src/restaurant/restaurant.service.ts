@@ -95,10 +95,7 @@ export class RestaurantService {
 
     return this.prisma.users_Restaurants.findFirst({
       where: {
-        id_user: '66733f96d78cff6883834818',
-      },
-      include: {
-        restaurant: true,
+        id_user: id_user,
       },
     });
   }
