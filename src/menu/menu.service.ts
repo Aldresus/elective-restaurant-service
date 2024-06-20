@@ -38,13 +38,14 @@ export class MenuService {
           { id_restaurant: id_restaurant === '' ? undefined : id_restaurant },
         ],
       },
-      include: {
-        Menu_Categories: {
-          include: {
-            Product: true,
-          },
-        },
-      },
+
+      // include: {
+      //   Menu_Categories: {
+      //     include: {
+      //       Product: true,
+      //     },
+      //   },
+      // },
     });
   }
 
