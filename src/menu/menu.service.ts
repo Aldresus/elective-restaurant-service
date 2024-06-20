@@ -32,21 +32,24 @@ export class MenuService {
   }
 
   findMany(id_restaurant: string, deleted: string) {
-    return this.prisma.menu.findMany({
+    const test = this.prisma.menu.findMany({
       where: {
         AND: [
           { id_restaurant: id_restaurant === '' ? undefined : id_restaurant },
         ],
       },
 
-      // include: {
-      //   Menu_Categories: {
-      //     include: {
-      //       Product: true,
-      //     },
-      //   },
-      // },
+      include: {
+        Menu_Categories: {
+          include: {
+            Product: true,
+          },
+        },
+      },
     });
+
+    console.log(test);
+    return test;
   }
 
   update(id_menu: string, updateMenuDto: UpdateMenuDto) {
