@@ -91,11 +91,14 @@ export class RestaurantService {
   }
 
   getByUserId(id_user: string) {
-    console.log(id_user);
+    console.log('id_user', id_user);
 
-    return this.prisma.users_Restaurants.findFirst({
+    return this.prisma.users_Restaurants.findMany({
       where: {
         id_user: id_user,
+      },
+      include: {
+        restaurant: true,
       },
     });
   }
