@@ -24,7 +24,7 @@ export class ProductService {
   }
 
   findUnique(id_product: string) {
-    const test = this.prisma.product.findUnique({
+    return this.prisma.product.findUnique({
       where: {
         id_product: id_product === '' ? undefined : id_product,
       },
