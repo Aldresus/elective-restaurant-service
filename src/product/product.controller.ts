@@ -49,7 +49,10 @@ export class ProductController {
   @ApiParam({ name: 'id_product', type: String })
   findAllProducts(@Param('id_product') idProduct: string) {
     console.log(idProduct);
-    return this.productService.findUnique(idProduct);
+    const test = this.productService.findUnique(idProduct);
+    console.log(test);
+
+    return test;
   }
 
   @Patch(':id')

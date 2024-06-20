@@ -29,10 +29,6 @@ export class ProductService {
         id_product: id_product === '' ? undefined : id_product,
       },
     });
-
-    console.log(test);
-
-    return test;
   }
 
   update(id_product: string, updateProductDto: UpdateProductDto) {
