@@ -37,12 +37,12 @@ import { CreateRestaurantCategoryDto } from './dto/create-category';
 export class RestaurantController {
   constructor(private readonly restaurantsService: RestaurantService) {}
 
-  @Post()
+  @Post(':id_user')
   @ApiOperation({ summary: 'Create a restaurant' })
   @ApiCreatedResponse({ type: RestaurantEntity })
   @ApiBody({ type: CreateRestaurantDto })
-  create(@Body() createRestaurantDto) {
-    return this.restaurantsService.create(createRestaurantDto);
+  create(@Body() createRestaurantDto, @Param('id_user') id_user: string) {
+    return this.restaurantsService.create(createRestaurantDto, id_user);
   }
 
   @Post(':id/image')

@@ -13,11 +13,16 @@ import { CreateRestaurantCategoryDto } from './dto/create-category';
 export class RestaurantService {
   constructor(private prisma: PrismaService) {}
 
-  create(createRestaurantDto: CreateRestaurantDto) {
+  create(createRestaurantDto: CreateRestaurantDto, id_user: string) {
     console.log(createRestaurantDto);
 
-    return this.prisma.restaurant.create({
-      data: createRestaurantDto,
+    return this.prisma.users_Restaurants.create({
+      data: {
+        id_user,
+        restaurant: {
+          create: createRestaurantDto,
+        },
+      },
     });
   }
 
