@@ -14,62 +14,85 @@ datasource db {
 }
 
 model Users_Restaurants {
-  id_user_restaurant String @id @default(auto()) @map("_id") @db.ObjectId
-  id_restaurant      String @db.ObjectId
-  id_user            String @db.ObjectId
+  id_user_restaurant          String                   @id @default(auto()) @map("_id") @db.ObjectId
+  id_restaurant               String                   @db.ObjectId 
+  id_user                     String                   @db.ObjectId
+
+  restaurant         Restaurant @relation(fields: [id_restaurant], references: [id_restaurant])
 }
 
 model Restaurant {
-  id_restaurant               String    @id @default(auto()) @map("_id") @db.ObjectId
+  id_restaurant               String                   @id @default(auto()) @map("_id") @db.ObjectId
   siret                       String
   name                        String
-  category                    String
-  createdAt                   DateTime  @default(now())
-  updatedAt                   DateTime  @updatedAt
+  food_type                   String
+  createdAt                   DateTime                 @default(now())
+  updatedAt                   DateTime                 @updatedAt
   price_range                 String
-  rating                      Float     @default(0.0)
+  rating                      Float                    @default(0.0)
   email                       String
   banner_url                  String
   business_hours              String
   address                     String
   city                        String
   postal_code                 String
-  restaurant_order_categories String
-  Menu                        Menu[]
-  Product                     Product[]
+  Restaurant_Categories       Restaurant_Category[]  
+  Menus                       Menu[]  
+  Products                    Product[]
+  users_Restaurants           Users_Restaurants[]
+}
+
+model Restaurant_Category {
+  id_restaurant_category      String                   @id @default(auto()) @map("_id") @db.ObjectId 
+  name                        String
+  ids_menu                    String[]                 @db.ObjectId @default([])
+  Menus                       Menu[]                   @relation(fields: [ids_menu], references: [id_menu])
+  ids_product                 String[]                 @db.ObjectId @default([])
+  Products                    Product[]                @relation(fields: [ids_product], references: [id_product])
+
+  id_restaurant               String                   @db.ObjectId
+  Restaurant                  Restaurant               @relation(fields: [id_restaurant], references: [id_restaurant])
 }
 
 model Product {
-  id_product        String           @id @default(auto()) @map("_id") @db.ObjectId
-  name              String
-  price             Float
-  description       String
-  product_image_url String           @default("")
-  deleted           Boolean          @default(false)
-  category          String
-  restaurant        Restaurant       @relation(fields: [id_restaurant], references: [id_restaurant])
-  id_restaurant     String           @db.ObjectId
-  createdAt         DateTime         @default(now())
-  updatedAt         DateTime         @updatedAt
-  ids_menus_products String[]         @db.ObjectId
-  Menus_Products    Menu[]            @relation(fields: [ids_menus_products], references: [id_menu])
+  id_product                  String                   @id @default(auto()) @map("_id") @db.ObjectId
+  name                        String
+  price                       Float
+  description                 String
+  product_image_url           String                   @default("")
+  restaurant                  Restaurant               @relation(fields: [id_restaurant], references: [id_restaurant])
+  id_restaurant               String                   @db.ObjectId
+  createdAt                   DateTime                 @default(now())
+  updatedAt                   DateTime                 @updatedAt
+  ids_menu_category           String[]                 @db.ObjectId @default([])
+  Menu_Categories             Menu_Category[]          @relation(fields: [ids_menu_category], references: [id_category])
+
+  ids_restaurant_category     String[]                 @db.ObjectId @default([])
+  Restaurant_Categories       Restaurant_Category[]    @relation(fields: [ids_restaurant_category], references: [id_restaurant_category])
 }
 
+model Menu_Category {
+  id_category                 String                   @id @default(auto()) @map("_id") @db.ObjectId
+  name                        String
+  ids_product                 String[]                 @db.ObjectId @default([])
+  Product                     Product[]                @relation(fields: [ids_product], references: [id_product])
+  ids_menu                    String[]                 @db.ObjectId @default([])
+  Menus                       Menu[]                   @relation(fields: [ids_menu], references: [id_menu])
+} 
 model Menu {
-  id_menu                 String           @id @default(auto()) @map("_id") @db.ObjectId
-  name                    String
-  price                   Float
-  description             String
-  menu_image_url          String           @default("")
-  category                String
-  deleted                 Boolean          @default(false)
-  menu_ordered_categories String
-  restaurant              Restaurant       @relation(fields: [id_restaurant], references: [id_restaurant])
-  id_restaurant           String           @db.ObjectId
-  createdAt               DateTime         @default(now())
-  updatedAt               DateTime         @updatedAt
-  ids_product             String[]         @db.ObjectId
-  Products                Product[]        @relation(fields: [ids_product], references: [id_product])
+  id_menu                     String                   @id @default(auto()) @map("_id") @db.ObjectId
+  name                        String
+  price                       Float
+  description                 String
+  menu_image_url              String                   @default("")
+  restaurant                  Restaurant               @relation(fields: [id_restaurant], references: [id_restaurant])
+  id_restaurant               String                   @db.ObjectId
+  createdAt                   DateTime                 @default(now())
+  updatedAt                   DateTime                 @updatedAt
+  ids_menu_category           String[]                 @db.ObjectId @default([])
+  Menu_Categories             Menu_Category[]          @relation(fields: [ids_menu_category], references: [id_category])
+  ids_restaurant_category     String[]                 @db.ObjectId @default([])
+  Restaurant_Categories       Restaurant_Category[]    @relation(fields: [ids_restaurant_category], references: [id_restaurant_category])
 } 
 
 // model Menus_Products {

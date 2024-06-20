@@ -15,19 +15,19 @@ export class ProductEntity implements Product {
   description: string;
 
   @ApiProperty()
-  product_image_url: string;
+  deleted: boolean;
 
   @ApiProperty()
-  category: string;
+  product_image_url: string;
 
   @ApiProperty()
   id_restaurant: string;
 
   @ApiProperty()
-  ids_menus_products: string[];
+  ids_menu_category: string[];
 
   @ApiProperty()
-  deleted: boolean;
+  ids_restaurant_category: string[];
 
   @ApiProperty()
   createdAt: Date;

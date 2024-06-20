@@ -22,7 +22,12 @@ import {
   ApiTags,
 } from '@nestjs/swagger';
 import { MenuEntity } from './entities/menu.entity';
+
 import { FileInterceptor } from '@nestjs/platform-express';
+import { CategoryEntity } from './entities/category.entity';
+import { UpdateCategoryDto, UpdateProductCategoryDto } from './dto/update-category';
+import { CreateCategoryDto } from './dto/create-category';
+
 
 @Controller('api/menu')
 @ApiTags('menu')
@@ -34,8 +39,10 @@ export class MenuController {
   @ApiCreatedResponse({ type: MenuEntity })
   @ApiBody({ type: CreateMenuDto })
   create(@Body() createMenuDto: CreateMenuDto) {
+    console.log('Create menu dto', createMenuDto);
     return this.menuService.create(createMenuDto);
   }
+
 
   @Post(':id/image')
   @ApiOperation({ summary: 'Create a menu with an image' })
@@ -47,6 +54,24 @@ export class MenuController {
     @UploadedFile() image: Express.Multer.File,
   ) {
     return this.menuService.createWithImage(createMenuDto, image);
+    }
+
+      
+  @Post('category')
+  @ApiOperation({ summary: 'Create a category' })
+  @ApiCreatedResponse({ type: CategoryEntity })
+  @ApiBody({ type: CreateCategoryDto })
+  createCategory(@Body() createCategoryDto: CreateCategoryDto) {
+    return this.menuService.createCategory(createCategoryDto);
+  }
+
+  @Get(':id')
+  @ApiOperation({ summary: 'Get menu with ID' })
+  @ApiCreatedResponse({ type: MenuEntity })
+  @ApiParam({ name: 'id', type: String })
+  getById(@Param('id') id_menu: string) {
+    return this.menuService.getById(id_menu);
+
   }
 
   @Get()
@@ -60,6 +85,14 @@ export class MenuController {
   ) {
     console.log(idRestaurant, deleted);
     return this.menuService.findMany(idRestaurant, deleted);
+  }
+
+  @Patch('productCategory')
+  @ApiOperation({ summary: 'Update menu category with ID' })
+  @ApiCreatedResponse({ type: CategoryEntity })
+  @ApiBody({ type: UpdateProductCategoryDto })
+  updateCategory(@Body() updateProductCategoryDto: UpdateProductCategoryDto) {
+    return this.menuService.updateCategory(updateProductCategoryDto);
   }
 
   @Patch(':id')
@@ -91,5 +124,13 @@ export class MenuController {
   @ApiParam({ name: 'id', type: String })
   remove(@Param('id') id_menu: string) {
     return this.menuService.remove(id_menu);
+  }
+
+  @Delete('category/:id')
+  @ApiOperation({ summary: 'Delete category with ID' })
+  @ApiCreatedResponse({ type: CategoryEntity })
+  @ApiParam({ name: 'id', type: String })
+  removeCategory(@Param('id') id_category: string) {
+    return this.menuService.removeCategory(id_category);
   }
 }

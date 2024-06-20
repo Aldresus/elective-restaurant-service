@@ -8,20 +8,43 @@ export class CreateMenuDto {
   description: string;
 
   @ApiProperty()
-  menu_image_url?: string;
+  menu_image_url: string;
 
   @ApiProperty()
   price: number;
 
   @ApiProperty()
-  category: string;
-
-  @ApiProperty({ default: '111111111111111111111111' })
   id_restaurant: string;
 
   @ApiProperty()
-  ids_product: string[];
+  ids_menu_category: string[];
 
   @ApiProperty()
-  menu_ordered_categories: string;
+  ids_restaurant_category: string[];
 }
+
+// {
+//   @ApiProperty()
+//   name: string;
+
+//   @ApiProperty()
+//   description: string;
+
+//   @ApiProperty()
+//   menu_image_url?: string;
+
+//   @ApiProperty()
+//   price: number;
+
+//   @ApiProperty()
+//   category: string;
+
+//   @ApiProperty({ default: '111111111111111111111111' })
+//   id_restaurant: string;
+
+//   @ApiProperty()
+//   ids_product: string[];
+
+//   @ApiProperty()
+//   menu_ordered_categories: string;
+// }

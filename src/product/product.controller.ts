@@ -34,7 +34,7 @@ export class ProductController {
   @ApiOperation({ summary: 'Create a product' })
   @ApiCreatedResponse({ type: ProductEntity })
   @ApiBody({ type: CreateProductDto })
-  create(@Body() createProductDto) {
+  create(@Body() createProductDto: CreateProductDto) {
     return this.productService.create(createProductDto);
   }
 
@@ -54,13 +54,18 @@ export class ProductController {
   @ApiOperation({ summary: 'Get orders with optional filters' })
   @ApiCreatedResponse({ type: ProductEntity, isArray: true })
   @ApiQuery({ name: 'id_restaurant', required: false, type: String })
-  @ApiQuery({ name: 'deleted', required: false, type: Boolean })
-  findAll(
-    @Query('id_restaurant') idRestaurant: string,
-    @Query('deleted') deleted: string,
-  ) {
-    console.log(idRestaurant, deleted);
-    return this.productService.findMany(idRestaurant, deleted);
+  findAll(@Query('id_restaurant') idRestaurant: string) {
+    console.log(idRestaurant);
+    return this.productService.findMany(idRestaurant);
+  }
+
+  @Get(':id_product')
+  @ApiOperation({ summary: 'Get products with optional filters' })
+  @ApiCreatedResponse({ type: ProductEntity, isArray: true })
+  @ApiParam({ name: 'id_product', type: String })
+  findAllProducts(@Param('id_product') idProduct: string) {
+    console.log(idProduct);
+    return this.productService.findUnique(idProduct);
   }
 
   @Patch(':id')

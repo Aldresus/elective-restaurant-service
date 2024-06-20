@@ -11,11 +11,11 @@ pipeline {
             steps {
                 script {
                     try {
-                        sh "docker kill restaurant-service"
-                        sh "docker rm restaurant-service"
+                        sh "docker kill restaurant-service1"
+                        sh "docker kill restaurant-service2"
+                        sh "docker rm restaurant-service1"
+                        sh "docker rm restaurant-service2"
                         sh "docker rmi restaurant-service"
-
-
                     } catch (Exception e) {
                         echo "No existing image or container to remove"
                     }
@@ -23,7 +23,10 @@ pipeline {
             }
             post {
                 failure {
-                    discordSend description: "Failed to clear existing image and container.", link: env.BUILD_URL, result: currentBuild.currentResult, title: JOB_NAME, webhookURL: "${DISCORD_WEBHOOK_URL}"
+                    script {
+                        def committerName = sh(script: 'git log -1 --pretty=format:"%cn"', returnStdout: true).trim()
+                        discordSend description: "Failed to clear existing image and container. Committer: ${committerName}", link: env.BUILD_URL, result: currentBuild.currentResult, title: JOB_NAME, webhookURL: "${DISCORD_WEBHOOK_URL}"
+                    }
                 }
             }
         }
@@ -37,27 +40,37 @@ pipeline {
             }
             post {
                 failure {
-                    discordSend description: "Failed to build image.", link: env.BUILD_URL, result: currentBuild.currentResult, title: JOB_NAME, webhookURL: "${DISCORD_WEBHOOK_URL}"
+                    script {
+                        def committerName = sh(script: 'git log -1 --pretty=format:"%cn"', returnStdout: true).trim()
+                        discordSend description: "Failed to build image. Committer: ${committerName}", link: env.BUILD_URL, result: currentBuild.currentResult, title: JOB_NAME, webhookURL: "${DISCORD_WEBHOOK_URL}"
+                    }
                 }
             }
         }
         stage('deploy') {
             steps {
                 script {
-                    sh "docker run -d --name restaurant-service -p 9012:3000 --restart unless-stopped restaurant-service"
+                    sh "docker run -d --name restaurant-service1 --network elective_network --restart unless-stopped restaurant-service"
+                    sh "docker run -d --name restaurant-service2 --network elective_network --restart unless-stopped restaurant-service"
                 }
             }
             post {
                 success {
-                    discordSend description: "Deployed image successfully.", link: env.BUILD_URL, result: currentBuild.currentResult, title: JOB_NAME, webhookURL: "${DISCORD_WEBHOOK_URL}"
+                    script {
+                        def committerName = sh(script: 'git log -1 --pretty=format:"%cn"', returnStdout: true).trim()
+                        discordSend description: "Deployed image successfully. Committer: ${committerName}", link: env.BUILD_URL, result: currentBuild.currentResult, title: JOB_NAME, webhookURL: "${DISCORD_WEBHOOK_URL}"
+                    }
                 }
                 failure {
-                    discordSend description: "Failed to deploy image.", link: env.BUILD_URL, result: currentBuild.currentResult, title: JOB_NAME, webhookURL: "${DISCORD_WEBHOOK_URL}"
+                    script {
+                        def committerName = sh(script: 'git log -1 --pretty=format:"%cn"', returnStdout: true).trim()
+                        discordSend description: "Failed to deploy image. Committer: ${committerName}", link: env.BUILD_URL, result: currentBuild.currentResult, title: JOB_NAME, webhookURL: "${DISCORD_WEBHOOK_URL}"
+                    }
                 }
             }
         }
     }
-}  
+}
 
 def dockerExec(command) {
     sh "docker exec ${CONTAINER_NAME} ${command}"

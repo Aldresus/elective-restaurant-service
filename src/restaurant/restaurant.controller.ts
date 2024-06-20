@@ -22,7 +22,16 @@ import {
   ApiQuery,
   ApiTags,
 } from '@nestjs/swagger';
+
 import { FileInterceptor } from '@nestjs/platform-express';
+
+import { RestaurantCategoryEntity } from './entities/category.entity';
+import {
+  AddMenuInCategoryDto,
+  AddProductInCategoryDto,
+} from './dto/update-category';
+import { CreateRestaurantCategoryDto } from './dto/create-category';
+
 
 @Controller('api/restaurant')
 @ApiTags('restaurant')
@@ -37,6 +46,7 @@ export class RestaurantController {
     return this.restaurantsService.create(createRestaurantDto);
   }
 
+
   @Post(':id/image')
   @ApiOperation({ summary: 'Create a restaurant with an image' })
   @ApiCreatedResponse({ type: RestaurantEntity })
@@ -47,6 +57,31 @@ export class RestaurantController {
     @UploadedFile() image: Express.Multer.File,
   ) {
     return this.restaurantsService.createWithImage(createRestaurantDto, image);
+  }
+
+  @Post('restaurantCategory')
+  @ApiOperation({ summary: 'Create a restaurant category' })
+  @ApiCreatedResponse({ type: RestaurantCategoryEntity })
+  @ApiBody({ type: CreateRestaurantCategoryDto })
+  createCategory(
+    @Body() createRestaurantCategoryDto: CreateRestaurantCategoryDto,
+  ) {
+    return this.restaurantsService.createCategory(createRestaurantCategoryDto);
+  }
+
+  @Get(':id')
+  @ApiOperation({ summary: 'Get restaurant with ID' })
+  @ApiCreatedResponse({ type: RestaurantEntity })
+  @ApiParam({ name: 'id', type: String })
+  getById(@Param('id') id_restaurant: string) {
+    return this.restaurantsService.getById(id_restaurant);
+  }
+  @Get('user/:user_id')
+  @ApiOperation({ summary: 'Get restaurant ny user_id' })
+  @ApiCreatedResponse({ type: RestaurantEntity })
+  @ApiParam({ name: 'user_id', type: String })
+  getByUserId(@Param('user_id') user_id: string) {
+    return this.restaurantsService.getByUserId(user_id);
   }
 
   @Get()
@@ -77,6 +112,22 @@ export class RestaurantController {
       rating_gt: Number(ratingGT) || undefined,
       rating_lt: Number(ratingLT) || undefined,
     });
+  }
+
+  @Patch('addProductCategory')
+  @ApiOperation({ summary: 'Update menu category with ID' })
+  @ApiCreatedResponse({ type: RestaurantCategoryEntity })
+  @ApiBody({ type: AddProductInCategoryDto })
+  addProductCategory(@Body() addProductInCategoryDto: AddProductInCategoryDto) {
+    return this.restaurantsService.addProductCategory(addProductInCategoryDto);
+  }
+
+  @Patch('addMenuCategory')
+  @ApiOperation({ summary: 'Update menu category with ID' })
+  @ApiCreatedResponse({ type: RestaurantCategoryEntity })
+  @ApiBody({ type: AddMenuInCategoryDto })
+  addMenuCategory(@Body() addMenuInCategoryDto: AddMenuInCategoryDto) {
+    return this.restaurantsService.addMenuCategory(addMenuInCategoryDto);
   }
 
   @Patch(':id')
@@ -112,5 +163,13 @@ export class RestaurantController {
   @ApiParam({ name: 'id', type: String })
   remove(@Param('id') id_restaurant: string) {
     return this.restaurantsService.remove(id_restaurant);
+  }
+
+  @Delete('category/:id')
+  @ApiOperation({ summary: 'Delete category with ID' })
+  @ApiCreatedResponse({ type: RestaurantCategoryEntity })
+  @ApiParam({ name: 'id', type: String })
+  removeCategory(@Param('id') id_restaurant_category: string) {
+    return this.restaurantsService.removeCategory(id_restaurant_category);
   }
 }
