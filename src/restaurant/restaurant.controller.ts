@@ -7,6 +7,8 @@ import {
   Param,
   Delete,
   Query,
+  UseInterceptors,
+  UploadedFile,
 } from '@nestjs/common';
 import { RestaurantService } from './restaurant.service';
 import { CreateRestaurantDto } from './dto/create-restaurant.dto';
@@ -20,12 +22,16 @@ import {
   ApiQuery,
   ApiTags,
 } from '@nestjs/swagger';
+
+import { FileInterceptor } from '@nestjs/platform-express';
+
 import { RestaurantCategoryEntity } from './entities/category.entity';
 import {
   AddMenuInCategoryDto,
   AddProductInCategoryDto,
 } from './dto/update-category';
 import { CreateRestaurantCategoryDto } from './dto/create-category';
+
 
 @Controller('api/restaurant')
 @ApiTags('restaurant')
@@ -38,6 +44,19 @@ export class RestaurantController {
   @ApiBody({ type: CreateRestaurantDto })
   create(@Body() createRestaurantDto) {
     return this.restaurantsService.create(createRestaurantDto);
+  }
+
+
+  @Post(':id/image')
+  @ApiOperation({ summary: 'Create a restaurant with an image' })
+  @ApiCreatedResponse({ type: RestaurantEntity })
+  @ApiBody({ type: CreateRestaurantDto })
+  @UseInterceptors(FileInterceptor('image'))
+  createWithImage(
+    @Body() createRestaurantDto: CreateRestaurantDto,
+    @UploadedFile() image: Express.Multer.File,
+  ) {
+    return this.restaurantsService.createWithImage(createRestaurantDto, image);
   }
 
   @Post('restaurantCategory')
@@ -118,6 +137,24 @@ export class RestaurantController {
   @ApiParam({ name: 'id', type: String })
   update(@Param('id') id_restaurant: string, @Body() updateRestaurantDto) {
     return this.restaurantsService.update(id_restaurant, updateRestaurantDto);
+  }
+
+  @Patch(':id/image')
+  @ApiOperation({ summary: 'Update restaurant image with ID' })
+  @ApiCreatedResponse({ type: RestaurantEntity })
+  @ApiBody({ type: UpdateRestaurantDto })
+  @UseInterceptors(FileInterceptor('image'))
+  @ApiParam({ name: 'id', type: String })
+  updateRestaurantImage(
+    @Param('id') id_restaurant: string,
+    @Body() updateRestaurantDto: UpdateRestaurantDto,
+    @UploadedFile() image: Express.Multer.File,
+  ) {
+    return this.restaurantsService.updateRestaurantImage(
+      id_restaurant,
+      updateRestaurantDto,
+      image,
+    );
   }
 
   @Delete(':id')

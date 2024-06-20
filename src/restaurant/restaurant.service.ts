@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import type { CreateRestaurantDto } from './dto/create-restaurant.dto';
 import type { UpdateRestaurantDto } from './dto/update-restaurant.dto';
 import { PrismaService } from 'src/prisma.service';
+import uploadImage from 'src/uploadImage';
 import {
   AddMenuInCategoryDto,
   AddProductInCategoryDto,
@@ -18,6 +19,23 @@ export class RestaurantService {
     return this.prisma.restaurant.create({
       data: createRestaurantDto,
     });
+  }
+
+  async createWithImage(
+    createRestaurantDto: CreateRestaurantDto,
+    image?: Express.Multer.File,
+  ) {
+    try {
+      await this.prisma.restaurant.create({
+        data: {
+          ...createRestaurantDto,
+          banner_url: await uploadImage('restaurants', image),
+        },
+      });
+    } catch (err) {
+      console.error(err);
+      throw err;
+    }
   }
 
   findMany(data: {
@@ -91,6 +109,22 @@ export class RestaurantService {
         id_restaurant: id_restaurant,
       },
       data: updateRestaurantDto,
+    });
+  }
+
+  async updateRestaurantImage(
+    id_restaurant: string,
+    updateRestaurantDto: UpdateRestaurantDto,
+    image: Express.Multer.File,
+  ) {
+    return this.prisma.restaurant.update({
+      where: {
+        id_restaurant: id_restaurant,
+      },
+      data: {
+        ...updateRestaurantDto,
+        banner_url: await uploadImage('restaurants', image),
+      },
     });
   }
 

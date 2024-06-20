@@ -2,10 +2,14 @@ import { Injectable } from '@nestjs/common';
 import type { CreateMenuDto } from './dto/create-menu.dto';
 import type { UpdateMenuDto } from './dto/update-menu.dto';
 import { PrismaService } from 'src/prisma.service';
+
+import uploadImage from 'src/uploadImage';
+
 import { UpdateProductCategoryDto } from './dto/update-category';
 import { CreateCategoryDto } from './dto/create-category';
 import { connect } from 'http2';
 import { Prisma } from '@prisma/client';
+
 @Injectable()
 export class MenuService {
   constructor(private prisma: PrismaService) {}
@@ -14,6 +18,23 @@ export class MenuService {
     return this.prisma.menu.create({
       data: createMenuDto,
     });
+  }
+
+  async createWithImage(
+    createMenuDto: CreateMenuDto,
+    menu_image?: Express.Multer.File,
+  ) {
+    try {
+      await this.prisma.menu.create({
+        data: {
+          ...createMenuDto,
+          menu_image_url: await uploadImage('menus', menu_image),
+        },
+      });
+    } catch (err) {
+      console.error(err);
+      throw err;
+    }
   }
 
   getById(id_menu: string) {
@@ -58,6 +79,22 @@ export class MenuService {
         id_menu: id_menu,
       },
       data: updateMenuDto,
+    });
+  }
+
+  async updateMenuImage(
+    id_menu: string,
+    updateMenuDto: UpdateMenuDto,
+    image: Express.Multer.File,
+  ) {
+    return this.prisma.menu.update({
+      where: {
+        id_menu: id_menu,
+      },
+      data: {
+        ...updateMenuDto,
+        menu_image_url: await uploadImage('menus', image),
+      },
     });
   }
 
